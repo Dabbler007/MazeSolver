@@ -30,8 +30,7 @@ public class MazeSolver {
     public static void main(String[] args) {
         System.out.println("-- Ininitialising Mail Solver --");
         
-        System.out.println("-- "
-                + "-- Ending Maze Solver --");
+        System.out.println("-- Ending Maze Solver --");
     }
     
 }
