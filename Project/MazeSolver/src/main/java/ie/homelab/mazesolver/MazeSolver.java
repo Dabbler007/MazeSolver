@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 derek
+ * Copyright (C) 2025 Derek Fitzsimons
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -18,16 +18,20 @@
 package ie.homelab.mazesolver;
 
 /**
- *
+ * Maze Solver implemented in Java (JDK 21)
  * @author derek
  */
 public class MazeSolver {
 
     /**
+     * Java main method.
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        System.out.println("-- Ininitialising Mail Solver --");
+        
+        System.out.println("-- "
+                + "-- Ending Maze Solver --");
     }
     
 }
