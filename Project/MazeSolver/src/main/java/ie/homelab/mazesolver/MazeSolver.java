@@ -19,6 +19,8 @@ package ie.homelab.mazesolver;
 
 import java.io.Console;
 
+import ie.homelab.mazesolver.model.Maze;
+
 /**
  * Maze Solver implemented in Java (JDK 21)
  *
@@ -37,8 +39,7 @@ public class MazeSolver {
         if (con != null) {
             System.out.println("\n\n");
 
-            //String rawsize = System.console().readLine();
-            int mazeSize;
+            int mazeSize = 20;
             boolean invalidSize = true;
             while (invalidSize) {
                 System.out.print("Enter a number (20-100) for initial maze size: ");
@@ -53,6 +54,7 @@ public class MazeSolver {
                     System.out.println("Invalid entry, try again");
                 }
             }
+            initMaze(mazeSize);
             System.out.println("\n\n");
         } else {
             System.out.println("\n\n-- OS does not support a console --\n\n");
@@ -61,6 +63,9 @@ public class MazeSolver {
     }
 
     public static void initMaze(int mazeSize) {
+
+        Maze maze = new Maze(mazeSize);
+        System.out.println(maze.toString());
     }
 
 }
