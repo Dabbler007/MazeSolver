@@ -15,18 +15,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 package ie.homelab.mazesolver.model;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Maze {
 
     /**
-     * Data structure holding grid data.
-     * char '#' for wall
-     * char '.' for space
-     * char 'E' for exit
+     * Data structure holding grid data.<br>char '#' for wall <br>char '.' for space<br>char 'E' for exit
      */
     private int[][] grid = null;
 
@@ -34,6 +31,17 @@ public class Maze {
      * Maze size, range 20 - 100.
      */
     private int mazeSize;
+
+    /**
+     * A Point record
+     */
+    private record Point(int x, int y) {
+
+        public Point {
+            Objects.requireNonNull(x);
+            Objects.requireNonNull(y);
+        }
+    }
 
     /**
      * Default Maze constructor.
@@ -46,7 +54,7 @@ public class Maze {
 
     /**
      * Parameterised Maze constructor
-     * 
+     *
      * @param mazeSizeValue int value 20 - 100 inclusive
      */
     public Maze(int mazeSizeValue) {
@@ -56,6 +64,7 @@ public class Maze {
 
     /**
      * Getter for maze size
+     *
      * @return maze size in range 20 - 100 inclusive
      */
     public int getMazeSize() {
@@ -73,30 +82,34 @@ public class Maze {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Maze other = (Maze) obj;
-        if (!Arrays.deepEquals(grid, other.grid))
+        if (!Arrays.deepEquals(grid, other.grid)) {
             return false;
-        if (mazeSize != other.mazeSize)
+        }
+        if (mazeSize != other.mazeSize) {
             return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
         final StringBuilder output = new StringBuilder();
-        output.append( "Maze [ mazeSize=" ).append( mazeSize ).append( "]\n");
-        for (int i = 0; i < grid.length; i++) {
+        output.append("Maze [ mazeSize=").append(mazeSize).append("]\n");
+        for (int[] grid1 : grid) {
             for (int j = 0; j < grid.length; j++) {
-                output.append((char)grid[i][j]);
+                output.append((char) grid1[j]);
             }
             output.append("\n");
-
         }
         return output.toString();
     }
@@ -105,12 +118,59 @@ public class Maze {
      * Initialise grid to be full of 'Walls'.
      */
     private void initGrid() {
+        // Fill grid with 'Walls'
         grid = new int[mazeSize][mazeSize];
-        for (int i = 0; i < grid.length; i++) {
+        for (int[] grid1 : grid) {
             for (int j = 0; j < grid.length; j++) {
-                grid[i][j] = '#';
+                grid1[j] = '#';
             }
         }
+
+        // Set start point
+        double value = Math.random() * mazeSize;
+        String val = "" + value;
+        val = val.substring(0, val.indexOf('.'));
+        int x = Integer.parseInt("" + val);
+        System.out.println(value + "  " + x + "  " + val);
+        value = Math.random() * mazeSize;
+        val = "" + value;
+        val = val.substring(0, val.indexOf('.'));
+        int y = Integer.parseInt("" + val);
+        Point start = new Point(x, y);
+        grid[start.x][start.y] = '.';
+
+        // Set exit point
+        // Exit point must be on an edge.
+        // Choose x or y axis
+        if (Math.random() > 0.5) {
+            // We choose 'x' as primary
+            value = Math.random() * mazeSize;
+            val = "" + value;
+            val = val.substring(0, val.indexOf('.'));
+            x = Integer.parseInt("" + val);
+
+            // y must be 0 or mazeSize -1
+            if (Math.random() >= 0.5) {
+                y = 0;
+            } else {
+                y = mazeSize - 1;
+            }
+        } else {
+            // We choose 'y' as primary
+            value = Math.random() * mazeSize;
+            val = "" + value;
+            val = val.substring(0, val.indexOf('.'));
+            y = Integer.parseInt("" + val);
+            // x must be 0 or mazeSize -1
+            if (Math.random() >= 0.5) {
+                x = 0;
+            } else {
+                x = mazeSize - 1;
+            }
+        }
+
+        Point exit = new Point(x, y);
+        grid[exit.x][exit.y] = 'X';
     }
-    
+
 }
