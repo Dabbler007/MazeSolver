@@ -17,20 +17,50 @@
  */
 package ie.homelab.mazesolver;
 
+import java.io.Console;
+
 /**
  * Maze Solver implemented in Java (JDK 21)
+ *
  * @author derek
  */
 public class MazeSolver {
 
     /**
      * Java main method.
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("-- Ininitialising Mail Solver --");
-        
+        System.out.println("-- Iniitialising Mail Solver --");
+        Console con = System.console();
+        if (con != null) {
+            System.out.println("\n\n");
+
+            //String rawsize = System.console().readLine();
+            int mazeSize;
+            boolean invalidSize = true;
+            while (invalidSize) {
+                System.out.print("Enter a number (20-100) for initial maze size: ");
+                String rawsize = con.readLine();
+                try {
+                    mazeSize = Integer.parseInt(rawsize);
+                    if (mazeSize >= 20 && mazeSize <= 100) {
+                        invalidSize = false;
+                    }
+                } catch (final NumberFormatException ex) {
+                    invalidSize = true;
+                    System.out.println("Invalid entry, try again");
+                }
+            }
+            System.out.println("\n\n");
+        } else {
+            System.out.println("\n\n-- OS does not support a console --\n\n");
+        }
         System.out.println("-- Ending Maze Solver --");
     }
-    
+
+    public static void initMaze(int mazeSize) {
+    }
+
 }
