@@ -1,0 +1,13 @@
+I want to write a specification for a java program using jdk 21.
+The program will solve a maze, allowing escape from the maze from any valid start position to a single exit point.
+The solution to the maze will use the optimal exit path with the fewest steps.
+Valid movement will be allowed in up,left,down and right directions only, no diagonal moves.
+The maze will be randomly generated.
+The exit point will be randomly generated.
+The maze will be of variable size specified by inputs.
+The size will be between 20 - 100 units square.
+A player will direct a token from the start point to the exit using keyboard input using 'w', 'a', 's' and 'd' representing up,left,down and right respectively.
+A count of the steps used to escape the maze will be maintained and a comparison to the most efficient path to the exit will be revealed on achieving exit.
+The program will display the maze on a grid.
+Impassable blocks will be displayed as black squares, empty spaces will be white.
+
