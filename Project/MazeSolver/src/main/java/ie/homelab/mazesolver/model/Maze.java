@@ -43,6 +43,9 @@ public class Maze {
         }
     }
 
+    private Point start;
+    private Point exit;
+
     /**
      * Default Maze constructor.
      */
@@ -111,6 +114,8 @@ public class Maze {
             }
             output.append("\n");
         }
+        output.append("Player [").append(start.x).append(",").append(start.y).append("] )");
+        output.append("Exit [").append(exit.x).append(",").append(exit.y).append("]\n");
         return output.toString();
     }
 
@@ -136,7 +141,7 @@ public class Maze {
         val = "" + value;
         val = val.substring(0, val.indexOf('.'));
         int y = Integer.parseInt("" + val);
-        Point start = new Point(x, y);
+        start = new Point(x, y);
         grid[start.x][start.y] = '.';
 
         // Set exit point
@@ -169,7 +174,7 @@ public class Maze {
             }
         }
 
-        Point exit = new Point(x, y);
+        exit = new Point(x, y);
         grid[exit.x][exit.y] = 'X';
     }
 
