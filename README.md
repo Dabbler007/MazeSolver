@@ -1,25 +1,27 @@
 15/12/2025, 12:43
 
 # Java Maze Solver Specification
+
 ## Project Name: Optimal Maze Escape
+
 ## Technology Stack: Java Development Kit (JDK) 21
+
 ## Target Environment: Console or Basic GUI (System.out for console, or simple Swing/JavaFX for minimal grid display)
+
 ## Version: 1.0
 
 1 Project Goals and Scope
   
   The primary goal of this program is to provide a complete, interactive, and analytical maze-solving application. It must fulfill two main functions:
 
-  1.1 Optimal Solution: Calculate the shortest possible path from any starting point to the designated
-exit.
+  1.1 Optimal Solution: Calculate the shortest possible path from any starting point to the designated exit.
 
-  1.2. User Interaction: Allow a user to navigate the maze interactively and compare their path length
-against the optimal path.
+  1.2. User Interaction: Allow a user to navigate the maze interactively and compare their path length against the optimal path.
 
-The program must be fully self-contained, handling maze generation, solution calculation, user input,
-and result display.
+  The program must be fully self-contained, handling maze generation, solution calculation, user input, and result display.
 
 2. Technical Stack & Architecture
+
   2.1 Technology
 
     Language: Java 21 (Leveraging modern features like Records for data structures if applicable).
