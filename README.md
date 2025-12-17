@@ -1,9 +1,11 @@
 15/12/2025, 12:43
 
-Java Maze Solver Specification
-Project Name: Optimal Maze Escape Technology Stack: Java Development Kit (JDK) 21 Target
-Environment: Console or Basic GUI (System.out for console, or simple Swing/JavaFX for minimal grid
-display) Version: 1.0
+#Java Maze Solver Specification
+##Project Name: Optimal Maze Escape
+##Technology Stack: Java Development Kit (JDK) 21
+##Target Environment: Console or Basic GUI (System.out for console, or simple Swing/JavaFX for minimal grid
+display)
+##Version: 1.0
 
 1. Project Goals and Scope
   The primary goal of this program is to provide a complete, interactive, and analytical maze-solving
