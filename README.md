@@ -10,78 +10,107 @@
 
 ## Version: 1.0
 
-1 Project Goals and Scope
+### Project Goals and Scope
   
-  The primary goal of this program is to provide a complete, interactive, and analytical maze-solving application. It must fulfill two main functions:
+    The primary goal of this program is to provide a complete, interactive, and analytical maze-solving application. It must fulfill two main functions:
 
-  1.1 Optimal Solution: Calculate the shortest possible path from any starting point to the designated exit.
+    1.1 Optimal Solution: Calculate the shortest possible path from any starting point to the designated exit.
 
-  1.2. User Interaction: Allow a user to navigate the maze interactively and compare their path length against the optimal path.
+    1.2 User Interaction: Allow a user to navigate the maze interactively and compare their path length against the optimal path.
 
-  The program must be fully self-contained, handling maze generation, solution calculation, user input, and result display.
+    The program must be fully self-contained, handling maze generation, solution calculation, user input, and result display.
 
-2. Technical Stack & Architecture
+### Technical Stack & Architecture
 
-  2.1 Technology
+  Technology
 
-    Language: Java 21 (Leveraging modern features like Records for data structures if applicable).
+    Language:
+      Java 21 (Leveraging modern features like Records for data structures if applicable).
 
-    Dependencies: Standard JDK libraries only (no external libraries required for core functionality).
+    Dependencies:
+      Standard JDK libraries only (no external libraries required for core functionality).
 
-  2.2 Data Structures
+    Data Structures
 
-  The application will rely on two primary data structures:
+      The application will rely on two primary data structures:
 
-    Data Structure  Purpose Implementation Detail  
-  
-    Maze Grid Stores the state of the maze (walls, open paths, start, exit).A 2D array of integers or enums (e.g., int[][] or CellType[][] ).
+      Data Structure / Implementation Detail  
     
-    Queue Used by the Breadth-First Search (BFS) algorithm to find the optimal path.java.util.LinkedList or java.util.ArrayDeque .
+      Maze Grid
+        Stores the state of the maze (walls, open paths, start, exit).A 2D array of integers or enums (e.g., int[][] or CellType[][] ).
+      
+      Queue
 
-    Stack Used by the Randomized Depth-First Search (DFS) algorithm for maze generation.java.util.Stack or java.util.LinkedList .
+        Used by the Breadth-First Search (BFS) algorithm to find the optimal path.java.util.LinkedList or java.util.ArrayDeque .
 
-    Point/Coordinate  Represents a position within the maze(e.g., a path segment or a wall). A Java record named Point(int x, int y) is ideal.
+      Stack
 
-3. Functional Requirements
+        Used by the Randomized Depth-First Search (DFS) algorithm for maze generation.java.util.Stack or java.util.LinkedList .
+
+      Point/Coordinate
+
+        Represents a position within the maze(e.g., a path segment or a wall). A Java record named Point(int x, int y) is ideal.
+
+### Functional Requirements
 
   3.1 Maze Characteristics
 
     - Size: Variable, square maze size ( N x N ).
+
     - Bounds: N must be between 20 and 100 units (e.g., 20x20 up to 100x100).
+
     - Generation: The maze structure itself must be randomly generated (see Algorithms).
+
     - Exit Point: A single exit point ( X ) must be randomly generated on the perimeter of the maze.
 
   3.2 User Interaction
-    Input: Player movement is controlled via standard keyboard input.
-    - 'w' : Up
-    - 's' : Down
-    - 'a' : Left
-    - 'd' : Right
 
-    Movement Logic: The player token ( P ) must not be allowed to move into an impassable block (wall) or out of the maze boundaries. Only horizontal and vertical movement is allowed.
+    Input:
+
+      Player movement is controlled via standard keyboard input.
+
+      - 'w' : Up
+
+      - 's' : Down
+
+      - 'a' : Left
+
+      - 'd' : Right
+
+    Movement Logic:
+    
+    The player token ( P ) must not be allowed to move into an impassable block (wall) or out of the maze boundaries. Only horizontal and vertical movement is allowed.
 
   3.3 Display Requirements
 
     The program must display the maze on a grid, ideally using simple characters or terminal colors if a graphical environment is not used.
 
-    Impassable Block (Wall): Displayed as a Black Square (or # in console).
+    Impassable Block (Wall):
 
-    Empty Space (Path): Displayed as a White Square (or . in console).
+      Displayed as a Black Square (or # in console).
 
-    Player Position: Displayed as a distinct token (e.g., P ).
-    
-    Exit Position: Displayed as a distinct token (e.g., E ).
+    Empty Space (Path):
+       Displayed as a White Square (or . in console).
+
+    Player Position:
+      Displayed as a distinct token (e.g., P ).
+  
+    Exit Position:
+      Displayed as a distinct token (e.g., X ).
 
   3.4 Outcome and Comparison
 
     Upon the player reaching the exit point:
 
-    1. The program must stop accepting movement input.
-    2. It must display the player's total step count ( C_player ).
-    3. It must display the optimal (fewest steps) path length ( C_optimal ).
-    4. It must display a comparison statement (e.g., "You took X extra steps," or "You found the optimal path!").
+    - The program must stop accepting movement input.
 
-4. Core Algorithms
+    - It must display the player's total step count ( C_player ).
+
+    - It must display the optimal (fewest steps) path length ( C_optimal ).
+
+    - It must display a comparison statement (e.g., "You took X extra steps," or "You found the optimal path!").
+
+### Core Algorithms
 
   The program relies on two distinct algorithms for its core functionality:
 
@@ -111,19 +140,19 @@
 
     BFS is the mandated algorithm because it guarantees finding the shortest path (in terms of number of steps) in an unweighted graph (where every move has a cost of 1).
 
-  1. Setup: Use a queue to store cells to visit, and a parallel 2D array ( distance[][] or visited[][] ) to track the distance from the exit and prevent infinite loops.
+    1. Setup: Use a queue to store cells to visit, and a parallel 2D array ( distance[][] or visited[][] ) to track the distance from the exit and prevent infinite loops.
 
-  2. Start: Begin the search from the Exit Point ( E ). Set the exit's distance to 0.
+    2. Start: Begin the search from the Exit Point ( E ). Set the exit's distance to 0.
 
-  3. Search: While the queue is not empty:
+    3. Search: While the queue is not empty:
 
-    Dequeue the current cell.
-    For each valid neighbor (Up, Left, Down, Right, and not a wall):
-      If the neighbor has not been visited, mark it as visited, set its distance (current distance + 1), and enqueue it.
+      Dequeue the current cell.
+      For each valid neighbor (Up, Left, Down, Right, and not a wall):
+        If the neighbor has not been visited, mark it as visited, set its distance (current distance + 1), and enqueue it.
 
-  4. Result: When the search completes, the optimal path length from any valid start position ( S ) to the exit is simply the value stored in the distance[S.x][S.y] array element.
+    4. Result: When the search completes, the optimal path length from any valid start position ( S ) to the exit is simply the value stored in the distance[S.x][S.y] array element.
 
-5. Implementation Structure (Key Classes)
+### Implementation Structure (Key Classes)
 
   MazeSolver (Main Class)
 
