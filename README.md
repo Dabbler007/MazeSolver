@@ -24,30 +24,30 @@
 
   Technology
 
-    **Language:**
+    Language:
       Java 21 (Leveraging modern features like Records for data structures if applicable).
 
-    *** Dependencies: ***
+    Dependencies:
       Standard JDK libraries only (no external libraries required for core functionality).
 
-    *** Data Structures ***
+    Data Structures
 
       The application will rely on two primary data structures:
 
       Data Structure / Implementation Detail  
     
-      **Maze Grid**
+      Maze Grid
         Stores the state of the maze (walls, open paths, start, exit).A 2D array of integers or enums (e.g., int[][] or CellType[][] ).
       
-      **Queue**
+      Queue
 
         Used by the Breadth-First Search (BFS) algorithm to find the optimal path.java.util.LinkedList or java.util.ArrayDeque .
 
-      **Stack**
+      Stack
 
         Used by the Randomized Depth-First Search (DFS) algorithm for maze generation.java.util.Stack or java.util.LinkedList .
 
-      **Point/Coordinate**
+      Point/Coordinate
 
         Represents a position within the maze(e.g., a path segment or a wall). A Java record named Point(int x, int y) is ideal.
 
@@ -65,7 +65,7 @@
 
   3.2 User Interaction
 
-    **Input:**
+    Input:
 
       Player movement is controlled via standard keyboard input.
 
@@ -77,28 +77,28 @@
 
       - 'd' : Right
 
-    **Movement Logic:**
+    Movement Logic:
     
     The player token ( P ) must not be allowed to move into an impassable block (wall) or out of the maze boundaries. Only horizontal and vertical movement is allowed.
 
-  **3.3** Display Requirements
+  3.3 Display Requirements
 
     The program must display the maze on a grid, ideally using simple characters or terminal colors if a graphical environment is not used.
 
-    **Impassable Block (Wall):**
+    Impassable Block (Wall):
 
       Displayed as a Black Square (or # in console).
 
-    **Empty Space (Path):**
+    Empty Space (Path):
        Displayed as a White Square (or . in console).
 
-    **Player Position:**
+    Player Position:
       Displayed as a distinct token (e.g., P ).
-    
-    **Exit Position:**
+  
+    Exit Position:
       Displayed as a distinct token (e.g., X ).
 
-  **3.4** Outcome and Comparison
+  3.4 Outcome and Comparison
 
     Upon the player reaching the exit point:
 
@@ -110,7 +110,7 @@
 
     - It must display a comparison statement (e.g., "You took X extra steps," or "You found the optimal path!").
 
-4. Core Algorithms
+### Core Algorithms
 
   The program relies on two distinct algorithms for its core functionality:
 
@@ -140,19 +140,19 @@
 
     BFS is the mandated algorithm because it guarantees finding the shortest path (in terms of number of steps) in an unweighted graph (where every move has a cost of 1).
 
-  1. Setup: Use a queue to store cells to visit, and a parallel 2D array ( distance[][] or visited[][] ) to track the distance from the exit and prevent infinite loops.
+    1. Setup: Use a queue to store cells to visit, and a parallel 2D array ( distance[][] or visited[][] ) to track the distance from the exit and prevent infinite loops.
 
-  2. Start: Begin the search from the Exit Point ( E ). Set the exit's distance to 0.
+    2. Start: Begin the search from the Exit Point ( E ). Set the exit's distance to 0.
 
-  3. Search: While the queue is not empty:
+    3. Search: While the queue is not empty:
 
-    Dequeue the current cell.
-    For each valid neighbor (Up, Left, Down, Right, and not a wall):
-      If the neighbor has not been visited, mark it as visited, set its distance (current distance + 1), and enqueue it.
+      Dequeue the current cell.
+      For each valid neighbor (Up, Left, Down, Right, and not a wall):
+        If the neighbor has not been visited, mark it as visited, set its distance (current distance + 1), and enqueue it.
 
-  4. Result: When the search completes, the optimal path length from any valid start position ( S ) to the exit is simply the value stored in the distance[S.x][S.y] array element.
+    4. Result: When the search completes, the optimal path length from any valid start position ( S ) to the exit is simply the value stored in the distance[S.x][S.y] array element.
 
-5. Implementation Structure (Key Classes)
+### Implementation Structure (Key Classes)
 
   MazeSolver (Main Class)
 
