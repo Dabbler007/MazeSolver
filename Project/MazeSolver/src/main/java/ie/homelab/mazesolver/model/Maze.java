@@ -136,7 +136,6 @@ public class Maze {
         String val = "" + value;
         val = val.substring(0, val.indexOf('.'));
         int x = Integer.parseInt("" + val);
-        System.out.println(value + "  " + x + "  " + val);
         value = Math.random() * mazeSize;
         val = "" + value;
         val = val.substring(0, val.indexOf('.'));
