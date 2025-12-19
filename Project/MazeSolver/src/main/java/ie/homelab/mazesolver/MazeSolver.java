@@ -28,6 +28,8 @@ import ie.homelab.mazesolver.model.Maze;
  */
 public class MazeSolver {
 
+private static Maze maze;
+
     /**
      * Java main method.
      *
@@ -62,9 +64,9 @@ public class MazeSolver {
         System.out.println("-- Ending Maze Solver --");
     }
 
-    public static void initMaze(int mazeSize) {
+    private static void initMaze(int mazeSize) {
 
-        Maze maze = new Maze(mazeSize);
+        maze = new Maze(mazeSize);
         System.out.println(maze.toString());
     }
 
