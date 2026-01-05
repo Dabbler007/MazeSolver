@@ -28,9 +28,9 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.6.2</version>
                 <configuration>
-                    <mainClass>ie.homelab.MazeSolver</mainClass>
+                    <mainClass>ie.homelab.mazesolver.MazeSolver</mainClass>
                 </configuration>
-            </plugin>            
+            </plugin>
         </plugins>
     </build>
     <reporting>

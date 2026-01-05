@@ -17,9 +17,8 @@
  */
 package ie.homelab.mazesolver;
 
-import java.io.Console;
-
 import ie.homelab.mazesolver.model.Maze;
+import java.io.Console;
 
 /**
  * Maze Solver implemented in Java (JDK 21)
@@ -28,6 +27,8 @@ import ie.homelab.mazesolver.model.Maze;
  */
 public class MazeSolver {
 
+    private static Maze maze;
+
     /**
      * Java main method.
      *
@@ -35,36 +36,71 @@ public class MazeSolver {
      */
     public static void main(String[] args) {
         System.out.println("-- Iniitialising Mail Solver --");
+
         Console con = System.console();
         if (con != null) {
             System.out.println("\n\n");
 
             int mazeSize = 20;
             boolean invalidSize = true;
-            while (invalidSize) {
-                System.out.print("Enter a number (20-100) for initial maze size: ");
-                String rawsize = con.readLine();
-                try {
-                    mazeSize = Integer.parseInt(rawsize);
-                    if (mazeSize >= 20 && mazeSize <= 100) {
-                        invalidSize = false;
-                    }
-                } catch (final NumberFormatException ex) {
-                    invalidSize = true;
-                    System.out.println("Invalid entry, try again");
+            String rawSize;
+
+            // Check for program arguments
+            if (args.length == 0) {
+                while (invalidSize) {
+                    System.out.print("Enter a number (20-100) for initial maze size: ");
+                    rawSize = con.readLine();
+                    invalidSize = validateMazeSize(rawSize, mazeSize);
+                }
+            } else {
+                // Try to validate program argument
+                rawSize = args[0];
+                invalidSize = validateMazeSize(rawSize, mazeSize);
+                if (invalidSize) {
+                    mazeSize = 20;
+                    System.out.println("Invalid parameter in command line - Defaulting to 20");
+                } else {
+                    System.out.println("-- Launching from argument --");
                 }
             }
             initMaze(mazeSize);
+            MazeGenerator mazeGenerator = new MazeGenerator(maze);
+            mazeGenerator.generateMaze();
+            System.out.println(maze);
             System.out.println("\n\n");
         } else {
             System.out.println("\n\n-- OS does not support a console --\n\n");
+            System.out.println("\n\n-- Try running program using java instead of javaw --\n\n");
         }
+
         System.out.println("-- Ending Maze Solver --");
     }
 
-    public static void initMaze(int mazeSize) {
+    private static boolean validateMazeSize(String rawSize, int mazeSize) {
+        boolean output = false;
 
-        Maze maze = new Maze(mazeSize);
+        try {
+            mazeSize = Integer.parseInt(rawSize);
+            if (mazeSize >= 20 && mazeSize <= 100) {
+                output = false;
+            }
+        }
+        catch (final NumberFormatException ex) {
+            output = true;
+            System.out.println("Invalid entry, try again");
+        }
+
+        return output;
+    }
+
+    /**
+     * initialise maze.
+     *
+     * @param mazeSize int value in the range 20 - 100
+     */
+    private static void initMaze(int mazeSize) {
+
+        maze = new Maze(mazeSize);
         System.out.println(maze.toString());
     }
 

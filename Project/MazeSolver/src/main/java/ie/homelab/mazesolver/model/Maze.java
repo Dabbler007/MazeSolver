@@ -19,23 +19,27 @@ package ie.homelab.mazesolver.model;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Random;
 
 public class Maze {
 
     /**
-     * Data structure holding grid data.<br>char '#' for wall <br>char '.' for space<br>char 'E' for exit
+     * Data structure holding grid data.<br>
+     * char '#' for wall <br>
+     * char '.' for space<br>
+     * char 'E' for exit
      */
-    private int[][] grid = null;
+    public int[][] grid = null;
 
     /**
      * Maze size, range 20 - 100.
      */
-    private int mazeSize;
+    private static int mazeSize;
 
     /**
      * A Point record
      */
-    private record Point(int x, int y) {
+    public record Point(int x, int y) {
 
         public Point {
             Objects.requireNonNull(x);
@@ -43,7 +47,14 @@ public class Maze {
         }
     }
 
+    /**
+     * 
+     */
     private Point start;
+
+    /**
+     * 
+     */
     private Point exit;
 
     /**
@@ -61,8 +72,32 @@ public class Maze {
      * @param mazeSizeValue int value 20 - 100 inclusive
      */
     public Maze(int mazeSizeValue) {
-        this.mazeSize = mazeSizeValue;
+        Maze.mazeSize = mazeSizeValue;
         initGrid();
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    public int[][] getGrid() {
+        return grid;
+    }
+
+    /**
+     * 
+     * @param grid 
+     */
+    public void setGrid(int[][] grid) {
+        this.grid = grid;
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    public Point getStart() {
+        return start;
     }
 
     /**
@@ -70,8 +105,16 @@ public class Maze {
      *
      * @return maze size in range 20 - 100 inclusive
      */
-    public int getMazeSize() {
+    public static int getMazeSize() {
         return mazeSize;
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    public Point getExit() {
+        return exit;
     }
 
     @Override
@@ -94,11 +137,11 @@ public class Maze {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Maze other = (Maze) obj;
+        final Maze other = (Maze) obj;
         if (!Arrays.deepEquals(grid, other.grid)) {
             return false;
         }
-        if (mazeSize != other.mazeSize) {
+        if (mazeSize != Maze.getMazeSize()) {
             return false;
         }
         return true;
@@ -108,12 +151,26 @@ public class Maze {
     public String toString() {
         final StringBuilder output = new StringBuilder();
         output.append("Maze [ mazeSize=").append(mazeSize).append("]\n");
-        for (int[] grid1 : grid) {
-            for (int j = 0; j < grid.length; j++) {
-                output.append((char) grid1[j]);
-            }
-            output.append("\n");
+        // Top line
+        output.append("+");
+        for (int i = 0; i < mazeSize; i++) {
+            output.append("-");
         }
+        output.append("+\n");
+        for (int i = 0; i < mazeSize; i++) {
+            output.append("|"); // Left edge
+            for (int j = 0; j < mazeSize; j++) {
+                output.append((char) grid[j][i]);
+            }
+            output.append("|\n"); // Right edge
+        }
+        // Bottom line
+        output.append("+"); // Bottom left corner
+        for (int i = 0; i < mazeSize; i++) {
+            output.append("-");
+        }
+        output.append("+\n"); // Bottom right corner
+
         output.append("Player [").append(start.x).append(",").append(start.y).append("] )");
         output.append("Exit [").append(exit.x).append(",").append(exit.y).append("]\n");
         return output.toString();
@@ -123,24 +180,17 @@ public class Maze {
      * Initialise grid to be full of 'Walls'.
      */
     private void initGrid() {
-        // Fill grid with 'Walls'
-        grid = new int[mazeSize][mazeSize];
+        // Fill grid with 'Walls', Make grid 1 cell wider and taller to facilitate generator algorithm
+        grid = new int[mazeSize + 1][mazeSize + 1];
         for (int[] grid1 : grid) {
-            for (int j = 0; j < grid.length; j++) {
+            for (int j = 0; j < mazeSize + 1; j++) {
                 grid1[j] = '#';
             }
         }
 
         // Set start point
-        double value = Math.random() * mazeSize;
-        String val = "" + value;
-        val = val.substring(0, val.indexOf('.'));
-        int x = Integer.parseInt("" + val);
-        System.out.println(value + "  " + x + "  " + val);
-        value = Math.random() * mazeSize;
-        val = "" + value;
-        val = val.substring(0, val.indexOf('.'));
-        int y = Integer.parseInt("" + val);
+        int x = new Random().nextInt(mazeSize); // Use actual maze size rather than grid size
+        int y = new Random().nextInt(mazeSize);
         start = new Point(x, y);
         grid[start.x][start.y] = '.';
 
@@ -149,12 +199,9 @@ public class Maze {
         // Choose x or y axis
         if (Math.random() > 0.5) {
             // We choose 'x' as primary
-            value = Math.random() * mazeSize;
-            val = "" + value;
-            val = val.substring(0, val.indexOf('.'));
-            x = Integer.parseInt("" + val);
+            x = new Random().nextInt(mazeSize); // Use actual maze size rather than grid size
 
-            // y must be 0 or mazeSize -1
+            // y must be 0 or mazeSize
             if (Math.random() >= 0.5) {
                 y = 0;
             } else {
@@ -162,11 +209,9 @@ public class Maze {
             }
         } else {
             // We choose 'y' as primary
-            value = Math.random() * mazeSize;
-            val = "" + value;
-            val = val.substring(0, val.indexOf('.'));
-            y = Integer.parseInt("" + val);
-            // x must be 0 or mazeSize -1
+
+            y = new Random().nextInt(mazeSize); // Use actual maze size rather than grid size
+            // x must be 0 or mazeSize
             if (Math.random() >= 0.5) {
                 x = 0;
             } else {
@@ -178,4 +223,20 @@ public class Maze {
         grid[exit.x][exit.y] = 'X';
     }
 
+    /**
+     * Check given coordinate falls within bounds of maze.
+     *
+     * @param x x coordinate
+     * @param y y coordinate
+     * @return
+     */
+    public static boolean isInBounds(int x, int y) {
+        boolean output = false;
+
+        if (x >= 0 && x < (mazeSize) && y >= 0 && y < (mazeSize)) {
+            // coordinate is in bounds
+            output = true;
+        }
+        return output;
+    }
 }
