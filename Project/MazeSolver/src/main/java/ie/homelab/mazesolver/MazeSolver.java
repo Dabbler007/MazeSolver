@@ -51,6 +51,9 @@ public class MazeSolver {
                     System.out.print("Enter a number (20-100) for initial maze size: ");
                     rawSize = con.readLine();
                     invalidSize = validateMazeSize(rawSize, mazeSize);
+                    if (!invalidSize) {
+                        mazeSize = Integer.parseInt(rawSize);
+                    }
                 }
             } else {
                 // Try to validate program argument
