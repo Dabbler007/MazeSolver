@@ -1,7 +1,7 @@
 {
-    "comment": "Use IntelliSense to learn about possible attributes.",
-    "comment": "Hover to view descriptions of existing attributes.",
-    "comment": "For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387",
+    "comment1": "Use IntelliSense to learn about possible attributes.",
+    "comment2": "Hover to view descriptions of existing attributes.",
+    "comment3": "For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387",
     
     "version": "0.2.0",
     "configurations": [
