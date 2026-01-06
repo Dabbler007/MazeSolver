@@ -48,12 +48,12 @@ public class Maze {
     }
 
     /**
-     * 
+     *
      */
     private Point start;
 
     /**
-     * 
+     *
      */
     private Point exit;
 
@@ -77,24 +77,24 @@ public class Maze {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public int[][] getGrid() {
         return grid;
     }
 
     /**
-     * 
-     * @param grid 
+     *
+     * @param grid
      */
     public void setGrid(int[][] grid) {
         this.grid = grid;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public Point getStart() {
         return start;
@@ -110,8 +110,8 @@ public class Maze {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public Point getExit() {
         return exit;
