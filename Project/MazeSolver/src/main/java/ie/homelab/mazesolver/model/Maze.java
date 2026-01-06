@@ -200,27 +200,34 @@ public class Maze {
         if (Math.random() > 0.5) {
             // We choose 'x' as primary
             x = new Random().nextInt(mazeSize); // Use actual maze size rather than grid size
-
-            // y must be 0 or mazeSize
-            if (Math.random() >= 0.5) {
-                y = 0;
-            } else {
-                y = mazeSize - 1;
-            }
+            // y must be on maze edge
+            y = edgePosition();
         } else {
             // We choose 'y' as primary
-
             y = new Random().nextInt(mazeSize); // Use actual maze size rather than grid size
-            // x must be 0 or mazeSize
-            if (Math.random() >= 0.5) {
-                x = 0;
-            } else {
-                x = mazeSize - 1;
-            }
+            // x must be on maze edge
+            x = edgePosition();
         }
 
         exit = new Point(x, y);
         grid[exit.x][exit.y] = 'X';
+    }
+
+    /**
+     * Edge Position
+     *
+     * @return int value representing a near or far edge on the edge of the
+     * maze. Chosen by random value .
+     */
+    private int edgePosition() {
+        int z;
+        // z must be 0 or mazeSize - 1
+        if (Math.random() >= 0.5) {
+            z = 0;
+        } else {
+            z = mazeSize - 1;
+        }
+        return z;
     }
 
     /**
