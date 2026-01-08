@@ -55,4 +55,11 @@
             <exec.workingdir>./</exec.workingdir>
         </properties>
     </action>
+    <action>
+            <actionName>CUSTOM-${project.build.directory}/reports/checkstyle/</actionName>
+            <displayName>${project.build.directory}/reports/checkstyle/</displayName>
+            <goals>
+                <goal>checkstyle:checkstyle</goal>
+            </goals>
+        </action>
 </actions>
