@@ -13,6 +13,25 @@
     <name>MazeSolver</name>
     <build>
         <plugins>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.4.0</version>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.12.0</version>
+            </plugin>           
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.4</version>
+            </plugin> 
+                        
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -31,6 +50,27 @@
                     <mainClass>ie.homelab.mazesolver.MazeSolver</mainClass>
                 </configuration>
             </plugin>
+                   
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                        <manifest>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>ie.homelab.mazesolver.MazeSolver</mainClass>
+                        </manifest>
+                        <manifestEntries>                                    
+                            <Trusted-Library>true</Trusted-Library>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin> 
+                      
         </plugins>
     </build>
     <reporting>
