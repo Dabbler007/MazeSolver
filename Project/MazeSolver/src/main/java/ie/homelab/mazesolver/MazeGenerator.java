@@ -25,7 +25,7 @@ import java.util.Random;
 import java.util.Stack;
 
 /**
- * Generate maze content. Generator ensures a path from start to finish.
+ * Generate maze content.<br>Generator ensures a path from start to finish.
  *
  * @author derek
  */
@@ -33,6 +33,10 @@ public class MazeGenerator {
 
     private static Maze maze;
 
+    /**
+     * Parameterised MazeGenerator constructor.
+     * @param maze Maze data Object.
+     */
     public MazeGenerator(final Maze maze) {
         MazeGenerator.maze = maze;
         generateMaze();
@@ -79,7 +83,7 @@ public class MazeGenerator {
      *
      * @param p Point in the grid.
      * @param grid Grid data.
-     * @return
+     * @return List of Points.
      */
     private List<Point> getUnvisitedNeighbours(Point p, int[][] grid) {
         List<Point> output = new ArrayList<>();
