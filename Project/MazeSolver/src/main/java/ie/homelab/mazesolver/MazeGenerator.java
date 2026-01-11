@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
+
 /**
  * Generate maze content.<br>Generator ensures a path from start to finish.
  *
@@ -31,19 +32,52 @@ import java.util.Stack;
  */
 public class MazeGenerator {
 
+    /**
+     * Search distance.
+     */
+    private static final int DIST = 2;
+    /**
+     * Maze data object.
+     */
     private static Maze maze;
 
     /**
      * Parameterised MazeGenerator constructor.
-     * @param maze Maze data Object.
+     *
+     * @param incomingMaze Maze data Object.
      */
-    public MazeGenerator(final Maze maze) {
-        MazeGenerator.maze = maze;
+    public MazeGenerator(final Maze incomingMaze) {
+        MazeGenerator.maze = incomingMaze;
         generateMaze();
     }
 
     /**
-     * Generate a maze path
+     * Get list of unvisited neighbours to point p.
+     *
+     * @param p Point in the grid.
+     * @param grid Grid data.
+     * @return List of Points.
+     */
+    private List<Point> getUnvisitedNeighbours(final Point p, final int[][] grid) {
+        List<Point> output = new ArrayList<>();
+        // below, above,left, right
+        int[][] directions = {{0, -DIST}, {0, DIST}, {-DIST, 0}, {DIST, 0}};
+        int nx;
+        int ny;
+        for (int[] dir : directions) {
+            nx = p.x() + dir[0];
+            ny = p.y() + dir[1];
+
+            // Unvisited Neighbours are in bounds and contain a wall or an exit
+            if (Maze.isInBounds(nx, ny) && (grid[nx][ny] == '#' || grid[nx][ny] == 'X')) {
+                output.add(new Maze.Point(nx, ny));
+            }
+        }
+        return output;
+    }
+
+    /**
+     * Generate a maze path.
      */
     public final void generateMaze() {
         // Randomized DFS Backtracking
@@ -55,7 +89,8 @@ public class MazeGenerator {
         grid[start.x()][start.y()] = '.'; // ensure start position holds a path value
         Point current;
         List<Point> neighbours;
-        int wallX, wallY;
+        int wallX;
+        int wallY;
         while (!queue.isEmpty()) {
             current = queue.peek();
             neighbours = getUnvisitedNeighbours(current, grid);
@@ -76,29 +111,5 @@ public class MazeGenerator {
                 queue.pop(); // No neighbours to investigate
             }
         }
-    }
-
-    /**
-     * Get list of unvisited neighbours to point p
-     *
-     * @param p Point in the grid.
-     * @param grid Grid data.
-     * @return List of Points.
-     */
-    private List<Point> getUnvisitedNeighbours(Point p, int[][] grid) {
-        List<Point> output = new ArrayList<>();
-        int[][] directions = {{0, -2}, {0, 2}, {-2, 0}, {2, 0}}; // below, above,left, right
-        int nx, ny;
-        for (int[] dir : directions) {
-            nx = p.x() + dir[0];
-            ny = p.y() + dir[1];
-
-            // || grid[nx][ny] == 'X'
-            // Unvisited Neighbours are in bounds and contain a wall or an exit
-            if (Maze.isInBounds(nx, ny) && (grid[nx][ny] == '#' || grid[nx][ny] == 'X')) {
-                output.add(new Maze.Point(nx, ny));
-            }
-        }
-        return output;
     }
 }
