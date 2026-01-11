@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>ie.homelab</groupId>
     <artifactId>MazeSolver</artifactId>
@@ -11,6 +12,7 @@
         <exec.mainClass>ie.homelab.mazesolver.MazeSolver</exec.mainClass>
     </properties>
     <name>MazeSolver</name>
+    <url>http://web.homelab.ie/MazeSolver</url>
     <build>
         <plugins>
             
@@ -42,14 +44,6 @@
                     </compilerArgs>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.6.2</version>
-                <configuration>
-                    <mainClass>ie.homelab.mazesolver.MazeSolver</mainClass>
-                </configuration>
-            </plugin>
                    
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -69,18 +63,32 @@
                         </manifestEntries>
                     </archive>
                 </configuration>
-            </plugin> 
-                      
+            </plugin>  
+                       
         </plugins>
     </build>
     <reporting>
         <plugins>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.9.0</version>                    
+            </plugin>
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>3.6.0</version>                                      
                 <configuration>
-                    <configLocation>config/google_checks.xml</configLocation>
+                    <configLocation>${basedir}/config/custom_checkstyle.xml</configLocation>
+                    <lineLength>120</lineLength>
+                    <encoding>UTF-8</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <linkXRef>false</linkXRef>
+                    <outputDirectory>${basedir}/target/checkstyle/</outputDirectory>
+                    
                 </configuration>
             </plugin>
         </plugins>
