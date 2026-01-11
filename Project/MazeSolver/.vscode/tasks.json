@@ -9,7 +9,7 @@
                 "${compileOutput}",
                 "${dependencies}"
             ],
-            "problemMatcher": [],
+            "problemMatcher": [ ],
             "label": "java (buildArtifact): MazeSolver"
         }
     ]

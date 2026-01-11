@@ -2,7 +2,7 @@
     "comment1": "Use IntelliSense to learn about possible attributes.",
     "comment2": "Hover to view descriptions of existing attributes.",
     "comment3": "For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387",
-    
+
     "version": "0.2.0",
     "configurations": [
         {
@@ -16,7 +16,7 @@
             "name": "MazeSolver",
             "request": "launch",
             "mainClass": "ie.homelab.mazesolver.MazeSolver",
-            "args": ["20"],
+            "args": [ "20" ],
             "projectName": "MazeSolver"
         },
         {

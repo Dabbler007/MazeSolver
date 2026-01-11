@@ -21,7 +21,64 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * Data object for a maze.
+ *
+ * @author derek
+ */
 public class Maze {
+
+    /**
+     * Half multiplier.
+     */
+    private static final double HALF = 0.5d;
+    /**
+     * Maze size, range 20 - 100.
+     */
+    private static int mazeSize;
+
+    /**
+     * Default maze size.
+     */
+    public static final int DEFAULT_SIZE = 20;
+    /**
+     * Maximum maze size.
+     */
+    public static final int MAX_SIZE = 100;
+    /**
+     * Minimum maze size.
+     */
+    public static final int MIN_SIZE = 20;
+
+    /**
+     * Getter for maze size.
+     *
+     * @return maze size in range MIN_SIZE - MAX_SIZE inclusive.
+     */
+    public static int getMazeSize() {
+        return mazeSize;
+    }
+
+    /**
+     * Check given coordinate falls within bounds of maze.
+     *
+     * @param x x coordinate
+     * @param y y coordinate
+     * @return Is in bounds true/false.
+     */
+    public static boolean isInBounds(final int x, final int y) {
+        boolean output = false;
+
+        if (x >= 0 && x < (mazeSize) && y >= 0 && y < (mazeSize)) {
+            // coordinate is in bounds
+            output = true;
+        }
+        return output;
+    }
+    /**
+     * Exit point.
+     */
+    private Point exit;
 
     /**
      * Data structure holding grid data.<br>
@@ -29,94 +86,148 @@ public class Maze {
      * char '.' for space<br>
      * char 'E' for exit
      */
-    public int[][] grid = null;
+    private int[][] grid = null;
 
     /**
-     * Maze size, range 20 - 100.
-     */
-    private static int mazeSize;
-
-    /**
-     * A Point record
-     */
-    public record Point(int x, int y) {
-
-        public Point {
-            Objects.requireNonNull(x);
-            Objects.requireNonNull(y);
-        }
-    }
-
-    /**
-     *
+     * Start point.
      */
     private Point start;
-
-    /**
-     *
-     */
-    private Point exit;
 
     /**
      * Default Maze constructor.
      */
     public Maze() {
         // Default maze size.
-        mazeSize = 20;
+        mazeSize = DEFAULT_SIZE;
         initGrid();
     }
 
     /**
-     * Parameterised Maze constructor
+     * Parameterised Maze constructor.
      *
-     * @param mazeSizeValue int value 20 - 100 inclusive
+     * @param mazeSizeValue int value MIN_SIZE - MAX_SIZE inclusive.
      */
-    public Maze(int mazeSizeValue) {
+    public Maze(final int mazeSizeValue) {
         Maze.mazeSize = mazeSizeValue;
         initGrid();
     }
 
     /**
+     * Edge Position.
      *
-     * @return
+     * @return int value representing a near or far edge on the edge of the
+     * maze. Chosen by random value .
+     */
+    private int edgePosition() {
+        int z;
+        // z must be 0 or mazeSize - 1
+        if (Math.random() >= HALF) {
+            z = 0;
+        } else {
+            z = mazeSize - 1;
+        }
+        return z;
+    }
+
+    /**
+     * Initialise grid to be full of 'Walls'.
+     */
+    private void initGrid() {
+        /* Fill grid with 'Walls', Make grid 1 cell wider and taller to
+        facilitate generator algorithm */
+        grid = new int[mazeSize + 1][mazeSize + 1];
+        for (int[] grid1 : grid) {
+            for (int j = 0; j < mazeSize + 1; j++) {
+                grid1[j] = '#';
+            }
+        }
+
+        // Set start point
+        // Use actual maze size rather than grid size
+        int x = new Random().nextInt(mazeSize);
+        int y = new Random().nextInt(mazeSize);
+        start = new Point(x, y);
+        grid[start.x][start.y] = '.';
+
+        // Set exit point
+        // Exit point must be on an edge.
+        // Choose x or y axis
+        if (Math.random() > HALF) {
+            // We choose 'x' as primary
+            // Use actual maze size rather than grid size
+            x = new Random().nextInt(mazeSize);
+            // y must be on maze edge
+            y = edgePosition();
+        } else {
+            // We choose 'y' as primary
+            // Use actual maze size rather than grid size
+            y = new Random().nextInt(mazeSize);
+            // x must be on maze edge
+            x = edgePosition();
+        }
+
+        exit = new Point(x, y);
+        grid[exit.x][exit.y] = 'X';
+    }
+
+    /**
+     * Overrides equals.
+     *
+     * @param obj
+     * @return True or false
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        boolean output = false;
+        if (this == obj) {
+            output = true;
+        } else if (obj == null) {
+            output = false;
+        } else if (getClass() != obj.getClass()) {
+            output = false;
+        } else {
+            final Maze other = (Maze) obj;
+            if (!Arrays.deepEquals(grid, other.grid)) {
+                output = false;
+            } else if (mazeSize != Maze.getMazeSize()) {
+                output = false;
+            }
+        }
+        return output;
+    }
+
+    /**
+     * Getter for exit Point.
+     *
+     * @return exit Point.
+     */
+    public Point getExit() {
+        return exit;
+    }
+
+    /**
+     * Getter for grid data.
+     *
+     * @return Grid data.
      */
     public int[][] getGrid() {
         return grid;
     }
 
     /**
+     * Get start Point.
      *
-     * @param grid
-     */
-    public void setGrid(int[][] grid) {
-        this.grid = grid;
-    }
-
-    /**
-     *
-     * @return
+     * @return start Point.
      */
     public Point getStart() {
         return start;
     }
 
     /**
-     * Getter for maze size
+     * Overrides hashCode().
      *
-     * @return maze size in range 20 - 100 inclusive
+     * @return Object hashcode.
      */
-    public static int getMazeSize() {
-        return mazeSize;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Point getExit() {
-        return exit;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -126,27 +237,20 @@ public class Maze {
         return result;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Maze other = (Maze) obj;
-        if (!Arrays.deepEquals(grid, other.grid)) {
-            return false;
-        }
-        if (mazeSize != Maze.getMazeSize()) {
-            return false;
-        }
-        return true;
+    /**
+     * Set grid data.
+     *
+     * @param gridData Grid data.
+     */
+    public void setGrid(final int[][] gridData) {
+        this.grid = gridData;
     }
 
+    /**
+     * Overrides Object toString().
+     *
+     * @return String Object.
+     */
     @Override
     public String toString() {
         final StringBuilder output = new StringBuilder();
@@ -171,79 +275,29 @@ public class Maze {
         }
         output.append("+\n"); // Bottom right corner
 
-        output.append("Player [").append(start.x).append(",").append(start.y).append("] )");
-        output.append("Exit [").append(exit.x).append(",").append(exit.y).append("]\n");
+        output.append("Player [").append(start.x).append(",");
+        output.append(start.y).append("] )");
+        output.append("Exit [").append(exit.x).append(",");
+        output.append(exit.y).append("]\n");
         return output.toString();
     }
 
     /**
-     * Initialise grid to be full of 'Walls'.
-     */
-    private void initGrid() {
-        // Fill grid with 'Walls', Make grid 1 cell wider and taller to facilitate generator algorithm
-        grid = new int[mazeSize + 1][mazeSize + 1];
-        for (int[] grid1 : grid) {
-            for (int j = 0; j < mazeSize + 1; j++) {
-                grid1[j] = '#';
-            }
-        }
-
-        // Set start point
-        int x = new Random().nextInt(mazeSize); // Use actual maze size rather than grid size
-        int y = new Random().nextInt(mazeSize);
-        start = new Point(x, y);
-        grid[start.x][start.y] = '.';
-
-        // Set exit point
-        // Exit point must be on an edge.
-        // Choose x or y axis
-        if (Math.random() > 0.5) {
-            // We choose 'x' as primary
-            x = new Random().nextInt(mazeSize); // Use actual maze size rather than grid size
-            // y must be on maze edge
-            y = edgePosition();
-        } else {
-            // We choose 'y' as primary
-            y = new Random().nextInt(mazeSize); // Use actual maze size rather than grid size
-            // x must be on maze edge
-            x = edgePosition();
-        }
-
-        exit = new Point(x, y);
-        grid[exit.x][exit.y] = 'X';
-    }
-
-    /**
-     * Edge Position
+     * A Point record.
      *
-     * @return int value representing a near or far edge on the edge of the
-     * maze. Chosen by random value .
+     * @param x int value representing a point on the x axis.
+     * <br>In range MIN_SIZE - MAX_SIZE inclusive.
+     * @param y int value representing a point on the y axis.
+     * <br>In range MIN_SIZE - MAX_SIZE inclusive.
      */
-    private int edgePosition() {
-        int z;
-        // z must be 0 or mazeSize - 1
-        if (Math.random() >= 0.5) {
-            z = 0;
-        } else {
-            z = mazeSize - 1;
-        }
-        return z;
-    }
+    public record Point(int x, int y) {
 
-    /**
-     * Check given coordinate falls within bounds of maze.
-     *
-     * @param x x coordinate
-     * @param y y coordinate
-     * @return
-     */
-    public static boolean isInBounds(int x, int y) {
-        boolean output = false;
-
-        if (x >= 0 && x < (mazeSize) && y >= 0 && y < (mazeSize)) {
-            // coordinate is in bounds
-            output = true;
+        /**
+         * Point record constraints.
+         */
+        public Point {
+            Objects.requireNonNull(x);
+            Objects.requireNonNull(y);
         }
-        return output;
     }
 }

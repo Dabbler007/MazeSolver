@@ -55,4 +55,18 @@
             <exec.workingdir>./</exec.workingdir>
         </properties>
     </action>
+    <action>
+        <actionName>CUSTOM-Checkstyle</actionName>
+        <displayName>Checkstyle</displayName>
+        <goals>
+            <goal>checkstyle:checkstyle</goal>
+        </goals>
+        <properties>
+            <property name="configLocation">"${basedir}"/config/custom_checkstyle.xml</property>
+            <property name="lineLength">120</property>
+            <property name="consoleOutput">true</property>
+            <propertry name="linkXRef">false</property>
+        </properties>
+    </action>
+
 </actions>
