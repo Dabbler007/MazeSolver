@@ -1,3 +1,5 @@
+package ie.homelab.mazesolver;
+
 /*
  * Copyright (C) 2025 Derek Fitzsimons
  *
@@ -15,8 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package ie.homelab.mazesolver;
-
 import ie.homelab.mazesolver.model.Maze;
 import java.io.Console;
 
@@ -33,7 +33,14 @@ public class MazeSolver {
     private static Maze maze;
 
     /**
-     * initialise maze.
+     * Default Maze constructor.
+     */
+    public MazeSolver() {
+        // Default maze constructor.
+    }
+
+    /*
+     * Initialise maze.
      *
      * @param mazeSize int value in the range MIN_SIZE - MAX_SIZE
      */
@@ -57,7 +64,8 @@ public class MazeSolver {
             if (tempSize >= Maze.MIN_SIZE && tempSize <= Maze.MAX_SIZE) {
                 output = false;
             }
-        } catch (final NumberFormatException ex) {
+        }
+        catch (final NumberFormatException ex) {
             output = true;
             System.out.println("Invalid entry, try again");
         }

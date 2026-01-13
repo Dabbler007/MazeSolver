@@ -1,3 +1,5 @@
+package ie.homelab.mazesolver;
+
 /*
  * Copyright (C) 2025 Derek Fitzsimons
  *
@@ -15,15 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package ie.homelab.mazesolver;
-
 import ie.homelab.mazesolver.model.Maze;
 import ie.homelab.mazesolver.model.Maze.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Stack;
-
 
 /**
  * Generate maze content.<br>Generator ensures a path from start to finish.
@@ -60,7 +59,8 @@ public class MazeGenerator {
      */
     private List<Point> getUnvisitedNeighbours(final Point p, final int[][] grid) {
         List<Point> output = new ArrayList<>();
-        // below, above,left, right
+
+        // below, above,left, right.
         int[][] directions = {{0, -DIST}, {0, DIST}, {-DIST, 0}, {DIST, 0}};
         int nx;
         int ny;
@@ -68,7 +68,7 @@ public class MazeGenerator {
             nx = p.x() + dir[0];
             ny = p.y() + dir[1];
 
-            // Unvisited Neighbours are in bounds and contain a wall or an exit
+            // Unvisited Neighbours are in bounds and contain a wall or an exit.
             if (Maze.isInBounds(nx, ny) && (grid[nx][ny] == '#' || grid[nx][ny] == 'X')) {
                 output.add(new Maze.Point(nx, ny));
             }
@@ -85,8 +85,8 @@ public class MazeGenerator {
 
         int[][] grid = maze.getGrid();
         Maze.Point start = maze.getStart();
-        queue.push(start); // Push start position onto stack
-        grid[start.x()][start.y()] = '.'; // ensure start position holds a path value
+        queue.push(start); // Push start position onto stack.
+        grid[start.x()][start.y()] = '.'; // ensure start position holds a path value.
         Point current;
         List<Point> neighbours;
         int wallX;
@@ -100,15 +100,15 @@ public class MazeGenerator {
                 wallX = (current.x() + next.x()) / 2;
                 wallY = (current.y() + next.y()) / 2;
                 if (grid[wallX][wallY] != 'X') {
-                    grid[wallX][wallY] = '.'; // Mark the wall between current and next as path
+                    grid[wallX][wallY] = '.'; // Mark the wall between current and next as path.
                 }
-                // Mark neighbour as path and move on
+                // Mark neighbour as path and move on.
                 if (grid[next.x()][next.y()] != 'X') {
                     grid[next.x()][next.y()] = '.';
                 }
                 queue.push(next);
             } else {
-                queue.pop(); // No neighbours to investigate
+                queue.pop(); // No neighbours to investigate.
             }
         }
     }

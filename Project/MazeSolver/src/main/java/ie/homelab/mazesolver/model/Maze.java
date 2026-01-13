@@ -1,3 +1,5 @@
+package ie.homelab.mazesolver.model;
+
 /*
  * Copyright (C) 2025 Derek Fitzsimons
  *
@@ -15,8 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package ie.homelab.mazesolver.model;
-
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
@@ -75,12 +75,13 @@ public class Maze {
         }
         return output;
     }
-    /**
+
+    /*
      * Exit point.
      */
     private Point exit;
 
-    /**
+    /*
      * Data structure holding grid data.<br>
      * char '#' for wall <br>
      * char '.' for space<br>
@@ -88,7 +89,7 @@ public class Maze {
      */
     private int[][] grid = null;
 
-    /**
+    /*
      * Start point.
      */
     private Point start;
@@ -112,11 +113,11 @@ public class Maze {
         initGrid();
     }
 
-    /**
+    /*
      * Edge Position.
      *
      * @return int value representing a near or far edge on the edge of the
-     * maze. Chosen by random value .
+        maze.<br>Chosen by random value.
      */
     private int edgePosition() {
         int z;
@@ -129,7 +130,7 @@ public class Maze {
         return z;
     }
 
-    /**
+    /*
      * Initialise grid to be full of 'Walls'.
      */
     private void initGrid() {
@@ -173,7 +174,7 @@ public class Maze {
     /**
      * Overrides equals.
      *
-     * @param obj
+     * @param obj Object to test equality against.
      * @return True or false
      */
     @Override
