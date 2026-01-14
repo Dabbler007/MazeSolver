@@ -286,10 +286,10 @@ public class Maze {
     /**
      * A Point record.
      *
+     * <p>Values x and y are in range MIN_SIZE - MAX_SIZE inclusive.</p>
+     *
      * @param x int value representing a point on the x axis.
-     * <br>In range MIN_SIZE - MAX_SIZE inclusive.
      * @param y int value representing a point on the y axis.
-     * <br>In range MIN_SIZE - MAX_SIZE inclusive.
      */
     public record Point(int x, int y) {
 
