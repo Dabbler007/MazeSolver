@@ -21,5 +21,16 @@
         <netbeans.compile.on.save>all</netbeans.compile.on.save>
         <netbeans.hint.licensePath>${project.basedir}/licenseheader.txt</netbeans.hint.licensePath>
         <netbeans.checkstyle.format>true</netbeans.checkstyle.format>
+        <org-netbeans-spi-editor-hints-projects.text.x-java.error-in-javadoc.availabilityfalse>false</org-netbeans-spi-editor-hints-projects.text.x-java.error-in-javadoc.availabilityfalse>
+        <org-netbeans-spi-editor-hints-projects.text.x-java.error-in-javadoc.scope>package</org-netbeans-spi-editor-hints-projects.text.x-java.error-in-javadoc.scope>
+        <org-netbeans-spi-editor-hints-projects.perProjectHintSettingsEnabled>true</org-netbeans-spi-editor-hints-projects.perProjectHintSettingsEnabled>
+        <org-netbeans-spi-editor-hints-projects.text.x-java.create-javadoc.scope>protected</org-netbeans-spi-editor-hints-projects.text.x-java.create-javadoc.scope>
+        <org-netbeans-spi-editor-hints-projects.text.x-java.create-javadoc.availabilitytrue>false</org-netbeans-spi-editor-hints-projects.text.x-java.create-javadoc.availabilitytrue>
+        <org-netbeans-spi-editor-hints-projects.text.x-java.org_2e_netbeans_2e_modules_2e_java_2e_hints_2e_AssignmentIssues_2e_assignmentToMethodParam.enabled>true</org-netbeans-spi-editor-hints-projects.text.x-java.org_2e_netbeans_2e_modules_2e_java_2e_hints_2e_AssignmentIssues_2e_assignmentToMethodParam.enabled>
+        <org-netbeans-spi-editor-hints-projects.text.x-java.org_2e_netbeans_2e_modules_2e_java_2e_hints_2e_OrganizeImports.enabled>true</org-netbeans-spi-editor-hints-projects.text.x-java.org_2e_netbeans_2e_modules_2e_java_2e_hints_2e_OrganizeImports.enabled>
+        <org-netbeans-spi-editor-hints-projects.text.x-java.Javac_5f_OVERRIDES.enabled>true</org-netbeans-spi-editor-hints-projects.text.x-java.Javac_5f_OVERRIDES.enabled>
+        <org-netbeans-spi-editor-hints-projects.text.x-java.Javac_5f_UNCHECKED.enabled>true</org-netbeans-spi-editor-hints-projects.text.x-java.Javac_5f_UNCHECKED.enabled>
+        <org-netbeans-spi-editor-hints-projects.text.x-java.Javac_5f_DEPRECATED.enabled>true</org-netbeans-spi-editor-hints-projects.text.x-java.Javac_5f_DEPRECATED.enabled>
+        <org-netbeans-spi-editor-hints-projects.text.x-java.Imports_5f_STAR.enabled>true</org-netbeans-spi-editor-hints-projects.text.x-java.Imports_5f_STAR.enabled>
     </properties>
 </project-shared-configuration>
