@@ -1,10 +1,11 @@
 /**
- * ie.homelab.mazesolver package containing action classes.
- * 
+ * Provides the core action classes and algorithms for maze related operations.
+ *
+ * @since 1.0
  * @author derek
  */
-package ie.homelab.mazesolver;
 
+package ie.homelab.mazesolver;
 /*
  * Copyright (C) 2026 derek
  *

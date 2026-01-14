@@ -1,7 +1,8 @@
 
 /**
- * ie.homelab.mazesolver.model package containing data model classes.
+ * Provides data model classes for storing mazes.
  *
+ * @since 1.0.0
  * @author derek
  */
 
