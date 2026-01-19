@@ -133,6 +133,9 @@ public class MazeSolver {
             System.out.println(sb.toString());
         }
 
+        MazeResolver resolver = new MazeResolver(maze);
+        resolver.resolveMaze();
+
         System.out.println("-- Ending Maze Solver --");
     }
 
