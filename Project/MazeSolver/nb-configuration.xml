@@ -11,6 +11,11 @@
         <word>ie</word>
         <word>MazeSolver</word>
     </spellchecker-wordlist>
+    <config-data xmlns="http://www.netbeans.org/ns/maven-config-data/1">
+        <configurations>
+            <configuration id="default-graphical" profiles=""/>
+        </configurations>
+    </config-data>
     <properties xmlns="http://www.netbeans.org/ns/maven-properties-data/1">
         <!--
         Properties that influence various parts of the IDE, especially code formatting and the like. 
@@ -32,5 +37,7 @@
         <org-netbeans-spi-editor-hints-projects.text.x-java.Javac_5f_UNCHECKED.enabled>true</org-netbeans-spi-editor-hints-projects.text.x-java.Javac_5f_UNCHECKED.enabled>
         <org-netbeans-spi-editor-hints-projects.text.x-java.Javac_5f_DEPRECATED.enabled>true</org-netbeans-spi-editor-hints-projects.text.x-java.Javac_5f_DEPRECATED.enabled>
         <org-netbeans-spi-editor-hints-projects.text.x-java.Imports_5f_STAR.enabled>true</org-netbeans-spi-editor-hints-projects.text.x-java.Imports_5f_STAR.enabled>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.text-limit-width>120</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.text-limit-width>
+        <org-netbeans-modules-javascript2-requirejs.enabled>true</org-netbeans-modules-javascript2-requirejs.enabled>
     </properties>
 </project-shared-configuration>
