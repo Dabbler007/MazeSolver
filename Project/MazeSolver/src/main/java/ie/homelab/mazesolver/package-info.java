@@ -4,8 +4,8 @@
  * @since 1.0
  * @author derek
  */
-
 package ie.homelab.mazesolver;
+
 /*
  * Copyright (C) 2026 derek
  *
