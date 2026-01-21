@@ -47,7 +47,6 @@ public class MazeSolver {
     private static void initMaze(final int mazeSize) {
 
         maze = new Maze(mazeSize);
-        System.out.println(maze.toString());
     }
 
     /**
@@ -121,20 +120,29 @@ public class MazeSolver {
                     System.out.println("-- Launching from argument --");
                 }
             }
+            
+            // Initialise
             initMaze(mazeSize);
+            System.out.println(maze.toString());
+            System.out.println("\n");
+            // Generate
             MazeGenerator mazeGenerator = new MazeGenerator(maze);
             mazeGenerator.generateMaze();
             System.out.println(maze);
-            System.out.println("\n\n");
+            System.out.println("\n");
+            // Resolve
+            MazeResolver resolver = new MazeResolver(maze);
+            resolver.resolveMaze();
+            System.out.println(maze);
+            System.out.print("Path: ");
+            System.out.println(""+resolver.getPointDistance(maze.getStart()));
+            System.out.println("\n");
         } else {
             System.out.println("\n\n-- OS does not support a console --\n\n");
             StringBuilder sb = new StringBuilder();
             sb.append("\n\n-- Try running program using java instead of javaw --\n\n");
             System.out.println(sb.toString());
         }
-
-        MazeResolver resolver = new MazeResolver(maze);
-        resolver.resolveMaze();
 
         System.out.println("-- Ending Maze Solver --");
     }
