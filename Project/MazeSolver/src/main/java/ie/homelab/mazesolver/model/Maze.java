@@ -85,7 +85,7 @@ public class Maze {
      * Data structure holding grid data.<br>
      * char '#' for wall <br>
      * char '.' for space<br>
-     * char 'E' for exit
+     * char 'X' for exit
      */
     private int[][] grid = null;
 
