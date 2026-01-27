@@ -30,7 +30,7 @@ public class MazeSolverFrame extends javax.swing.JFrame {
     private static final Logger LOGGER = Logger.getLogger(MazeSolverFrame.class.getName());
     private static final long serialVersionUID = 1L;
     /**
-     *
+     * Maze data structure.
      */
     protected static Maze maze;
 
@@ -139,12 +139,12 @@ public class MazeSolverFrame extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    } // </editor-fold> //GEN-END:initComponents
 
-    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
+    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_exitMenuItemActionPerformed
 
         System.exit(0);
-    }//GEN-LAST:event_exitMenuItemActionPerformed
+    } //GEN-LAST:event_exitMenuItemActionPerformed
 
     /**
      * MazeSolver frame main method.
@@ -189,7 +189,7 @@ public class MazeSolverFrame extends javax.swing.JFrame {
         textArea.repaint();
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify //GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
@@ -198,5 +198,5 @@ public class MazeSolverFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JScrollPane scrollPane;
     protected static javax.swing.JTextArea textArea;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration //GEN-END:variables
 }
