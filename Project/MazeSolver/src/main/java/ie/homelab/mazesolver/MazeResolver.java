@@ -22,6 +22,8 @@ import ie.homelab.mazesolver.model.Maze.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * MazeResolver. Used to resolve the shortest path from start point to exit point.
@@ -31,12 +33,17 @@ import java.util.Stack;
 public class MazeResolver {
 
     /**
+     * Logger.
+     */
+    private static final Logger LOGGER = Logger.getLogger(MazeResolver.class.getName());
+
+    /**
      * Search distance.
      */
     private static int DIST = 1;
 
     /**
-     * Search directions
+     * Search directions.
      */
     private static int[][] DIRECTIONS = {{0, -DIST}, {0, DIST}, {-DIST, 0}, {DIST, 0}};
     /**
@@ -71,7 +78,7 @@ public class MazeResolver {
      * @return true / false.
      */
     public boolean resolveMaze() {
-        boolean output = true;
+        final boolean output = true;
 
         // Track distances travelled from each point
         distance = new int[maze.getGrid().length - 1][maze.getGrid().length - 1];
@@ -103,7 +110,10 @@ public class MazeResolver {
             }
         }
 
-        System.out.println(renderDistances(distance));
+        if (LOGGER.isLoggable(Level.FINE)) {
+            LOGGER.log(Level.FINE, renderDistances(distance));
+            System.out.println(renderDistances(distance));
+        }
         return output;
     }
 
@@ -135,7 +145,7 @@ public class MazeResolver {
     /**
      * Initialise distances to -1.
      *
-     * @param distances
+     * @param distances Array of distances. Initially set to -1, representing unused values.
      */
     private int[][] initialiseDistances(final int[][] distances) {
 
@@ -148,14 +158,15 @@ public class MazeResolver {
     }
 
     /**
+     * Render distance values.
      *
-     * @param distances
-     * @return
+     * @param distances An array of distance values.
+     * @return String representation of distance values in a table format.
      */
     private String renderDistances(final int[][] distances) {
         final StringBuilder output = new StringBuilder();
 
-        //By row
+        // By row
         for (int x = 0; x < distances.length; x++) {
             for (int[] rowValues : distances) {
                 if (rowValues[x] < 0) {
