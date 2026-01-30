@@ -145,15 +145,16 @@ public class MazeSolver {
             // Resolve
             MazeResolver resolver = new MazeResolver(maze);
             resolver.resolveMaze();
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.log(Level.FINE, maze.toString());
-                System.out.println(maze.toString());
-                System.out.println("\n");
-                LOGGER.log(Level.FINE, "Path: {0}", resolver.getPointDistance(maze.getStart()));
-                System.out.print("Path: ");
-                System.out.println("" + resolver.getPointDistance(maze.getStart()));
-                System.out.println("\n");
-            }
+            // if (LOGGER.isLoggable(Level.INFO)) {
+            // LOGGER.log(Level.INFO, maze.toString());
+            System.out.println(maze.toString());
+            System.out.println("\n");
+            // LOGGER.log(Level.INFO, "Path: {0}",
+            // resolver.getPointDistance(maze.getStart()));
+            System.out.print("Path: ");
+            System.out.println("" + resolver.getPointDistance(maze.getStart()));
+            System.out.println("\n");
+            // }
 
         } else {
             if (LOGGER.isLoggable(Level.FINE)) {
