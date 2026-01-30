@@ -11,6 +11,17 @@
             ],
             "problemMatcher": [ ],
             "label": "java (buildArtifact): MazeSolver"
+        },
+        {
+            "type": "java (buildArtifact)",
+            "mainClass": "ie.homelab.mazesolver.MazeSolverFrame",
+            "targetPath": "${workspaceFolder}/${workspaceFolderBasename}",
+            "elements": [
+                "${compileOutput}",
+                "${dependencies}"
+            ],
+            "problemMatcher": [ ],
+            "label": "java (buildArtifact): MazeSolver"
         }
     ]
 }

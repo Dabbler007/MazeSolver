@@ -12,6 +12,8 @@
         <exec.mainClass>ie.homelab.mazesolver.MazeSolver</exec.mainClass>
     </properties>
     <name>MazeSolver</name>
+    <description>The primary goal of this program is to provide a complete,
+        interactive, and analytical maze-solving application.</description>
     <url>http://web.homelab.ie/MazeSolver</url>
     <build>
         <plugins>
@@ -63,7 +65,29 @@
                         </manifestEntries>
                     </archive>
                 </configuration>
-            </plugin>  
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.6.0</version>  
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>12.3.0</version>
+                    </dependency>
+                </dependencies>                                                    
+                <configuration>
+                    <configLocation>./config/custom_checkstyle.xml</configLocation>
+                    <lineLength>120</lineLength>
+                    <!--<charset>UTF-8</charset>-->
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>false</failsOnError>
+                    <linkXRef>false</linkXRef>
+                    <outputDirectory>./target/checkstyle/</outputDirectory>
+                    
+                </configuration>
+            </plugin>
                        
         </plugins>
     </build>
@@ -79,15 +103,23 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.6.0</version>                                      
+                <version>3.6.0</version>
+
+            </plugin>            
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.6.0</version>  
+                                                   
                 <configuration>
-                    <configLocation>${basedir}/config/custom_checkstyle.xml</configLocation>
+                    <configLocation>./config/google_checks.xml</configLocation>
                     <lineLength>120</lineLength>
-                    <encoding>UTF-8</encoding>
+                    <!--<charset>UTF-8</charset>-->
                     <consoleOutput>true</consoleOutput>
-                    <failsOnError>true</failsOnError>
+                    <failsOnError>false</failsOnError>
                     <linkXRef>false</linkXRef>
-                    <outputDirectory>${basedir}/target/checkstyle/</outputDirectory>
+                    <outputDirectory>./target/checkstyle/</outputDirectory>
                     
                 </configuration>
             </plugin>

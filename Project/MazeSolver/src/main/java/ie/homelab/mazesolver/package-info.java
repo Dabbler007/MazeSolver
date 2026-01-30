@@ -1,3 +1,11 @@
+/**
+ * Provides the core action classes and algorithms for maze related operations.
+ *
+ * @since 1.0
+ * @author derek
+ */
+package ie.homelab.mazesolver;
+
 /*
  * Copyright (C) 2026 derek
  *
@@ -15,7 +23,3 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-/**
- * ie.homelab.mazesolver package containing action classes.
- */
-package ie.homelab.mazesolver;

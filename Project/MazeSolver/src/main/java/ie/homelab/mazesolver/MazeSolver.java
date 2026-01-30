@@ -1,3 +1,5 @@
+package ie.homelab.mazesolver;
+
 /*
  * Copyright (C) 2025 Derek Fitzsimons
  *
@@ -15,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package ie.homelab.mazesolver;
-
 import ie.homelab.mazesolver.model.Maze;
 import java.io.Console;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Maze Solver implemented in Java (JDK 21).
@@ -28,19 +30,30 @@ import java.io.Console;
 public class MazeSolver {
 
     /**
+     * Logger.
+     */
+    private static final Logger LOGGER = Logger.getLogger(MazeSolver.class.getName());
+
+    /**
      * Maze data object.
      */
     private static Maze maze;
 
     /**
-     * initialise maze.
+     * Default Maze constructor.
+     */
+    public MazeSolver() {
+        // Default maze constructor.
+    }
+
+    /*
+     * Initialise maze.
      *
      * @param mazeSize int value in the range MIN_SIZE - MAX_SIZE
      */
     private static void initMaze(final int mazeSize) {
 
         maze = new Maze(mazeSize);
-        System.out.println(maze.toString());
     }
 
     /**
@@ -113,12 +126,40 @@ public class MazeSolver {
                     System.out.println("-- Launching from argument --");
                 }
             }
+
+            // Initialise
             initMaze(mazeSize);
+            if (LOGGER.isLoggable(Level.FINE)) {
+                LOGGER.log(Level.FINE, maze.toString());
+                System.out.println(maze.toString());
+                System.out.println("\n");
+            }
+            // Generate
             MazeGenerator mazeGenerator = new MazeGenerator(maze);
             mazeGenerator.generateMaze();
-            System.out.println(maze);
-            System.out.println("\n\n");
+            if (LOGGER.isLoggable(Level.FINE)) {
+                LOGGER.log(Level.FINE, maze.toString());
+                System.out.println(maze.toString());
+                System.out.println("\n");
+            }
+            // Resolve
+            MazeResolver resolver = new MazeResolver(maze);
+            resolver.resolveMaze();
+            // if (LOGGER.isLoggable(Level.INFO)) {
+            // LOGGER.log(Level.INFO, maze.toString());
+            System.out.println(maze.toString());
+            System.out.println("\n");
+            // LOGGER.log(Level.INFO, "Path: {0}",
+            // resolver.getPointDistance(maze.getStart()));
+            System.out.print("Path: ");
+            System.out.println("" + resolver.getPointDistance(maze.getStart()));
+            System.out.println("\n");
+            // }
+
         } else {
+            if (LOGGER.isLoggable(Level.FINE)) {
+                LOGGER.log(Level.FINE, "-- OS does not support a console --");
+            }
             System.out.println("\n\n-- OS does not support a console --\n\n");
             StringBuilder sb = new StringBuilder();
             sb.append("\n\n-- Try running program using java instead of javaw --\n\n");
