@@ -17,6 +17,7 @@ package ie.homelab.mazesolver.model;
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
@@ -26,7 +27,7 @@ import java.util.Random;
  *
  * @author derek
  */
-public class Maze {
+public class Maze implements Serializable {
 
     /**
      * Half multiplier.
@@ -49,6 +50,7 @@ public class Maze {
      * Minimum maze size.
      */
     public static final int MIN_SIZE = 20;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Getter for maze size.
@@ -291,7 +293,7 @@ public class Maze {
      * @param x int value representing a point on the x axis.
      * @param y int value representing a point on the y axis.
      */
-    public record Point(int x, int y) {
+    public record Point(int x, int y) implements Serializable {
 
         /**
          * Point record constraints.
