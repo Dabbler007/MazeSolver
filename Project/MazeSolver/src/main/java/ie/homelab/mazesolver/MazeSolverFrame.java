@@ -1,9 +1,9 @@
 package ie.homelab.mazesolver;
 
 import ie.homelab.mazesolver.model.Maze;
+import ie.homelab.mazesolver.view.MazePanel;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,7 +13,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
@@ -71,8 +70,11 @@ public class MazeSolverFrame extends javax.swing.JFrame {
         sb.append("\n\n");
 
         sb.append("-- Ending Maze Solver --\n");
-        textArea.setText(sb.toString());
-        textArea.repaint();
+
+        MazePanel mp = new MazePanel(maze);
+        mp.setVisible(true);
+        displayPanel.add(mp);
+        displayPanel.repaint();
     }
 
     /**
@@ -82,12 +84,13 @@ public class MazeSolverFrame extends javax.swing.JFrame {
      */
 
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         mainPanel = new JPanel();
         scrollPane = new JScrollPane();
-        textArea = new JTextArea();
+        displayPanel = new JPanel();
         menuBar = new JMenuBar();
         fileMenu = new JMenu();
         exitMenuItem = new JMenuItem();
@@ -95,34 +98,46 @@ public class MazeSolverFrame extends javax.swing.JFrame {
         aboutMenuItem = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(400, 800));
+        setTitle("Maze Solver");
+        setMinimumSize(new Dimension(400, 400));
         setSize(new Dimension(400, 800));
 
-        textArea.setColumns(20);
-        textArea.setFont(new Font("Monospaced", 0, 14)); // NOI18N
-        textArea.setRows(5);
-        scrollPane.setViewportView(textArea);
+        mainPanel.setMinimumSize(new Dimension(200, 200));
+        mainPanel.setPreferredSize(new Dimension(400, 400));
+
+        scrollPane.setMinimumSize(new Dimension(200, 200));
+        scrollPane.setViewportView(displayPanel);
+
+        displayPanel.setMinimumSize(new Dimension(200, 200));
+        displayPanel.setName(""); // NOI18N
+
+        GroupLayout displayPanelLayout = new GroupLayout(displayPanel);
+        displayPanel.setLayout(displayPanelLayout);
+        displayPanelLayout.setHorizontalGroup(displayPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGap(0, 441, Short.MAX_VALUE));
+        displayPanelLayout.setVerticalGroup(displayPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGap(0, 512, Short.MAX_VALUE));
+
+        scrollPane.setViewportView(displayPanel);
 
         GroupLayout mainPanelLayout = new GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
-        mainPanelLayout.setHorizontalGroup(
-                mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 388, Short.MAX_VALUE)
-                        .addGroup(mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addGroup(mainPanelLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 374,
-                                                GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))));
-        mainPanelLayout.setVerticalGroup(
-                mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 541, Short.MAX_VALUE)
-                        .addGroup(mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addGroup(mainPanelLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 514,
-                                                GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))));
+        mainPanelLayout.setHorizontalGroup(mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGap(0, 488, Short.MAX_VALUE)
+                .addGroup(mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(mainPanelLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+                                        Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE))));
+        mainPanelLayout.setVerticalGroup(mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGap(0, 425, Short.MAX_VALUE)
+                .addGroup(mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(mainPanelLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+                                        Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE))));
 
         fileMenu.setText("File");
 
@@ -143,24 +158,21 @@ public class MazeSolverFrame extends javax.swing.JFrame {
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(mainPanel, GroupLayout.DEFAULT_SIZE,
-                                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap()));
-        layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(mainPanel, GroupLayout.DEFAULT_SIZE,
-                                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(mainPanel, GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+                        .addContainerGap()));
+        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addComponent(mainPanel, GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE));
 
         pack();
     } // </editor-fold>//GEN-END:initComponents
 
     private void exitMenuItemActionPerformed(ActionEvent evt) { // GEN-FIRST:event_exitMenuItemActionPerformed
-
-        System.exit(0);
+        if(evt.getActionCommand().equals("Exit")){
+            System.exit(0);
+        }
     } // GEN-LAST:event_exitMenuItemActionPerformed
 
     /**
@@ -203,21 +215,17 @@ public class MazeSolverFrame extends javax.swing.JFrame {
     protected static void initMaze(final int mazeSize) {
 
         maze = new Maze(mazeSize);
-        textArea.setText("");
-        StringBuilder content = new StringBuilder(textArea.getText());
-        content.append(maze.toString()).append('\n');
-        textArea.setText(content.toString());
-        textArea.repaint();
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JMenuItem aboutMenuItem;
+    private JPanel displayPanel;
     private JMenuItem exitMenuItem;
     private JMenu fileMenu;
     private JMenu helpMenu;
     private JPanel mainPanel;
     private JMenuBar menuBar;
     private JScrollPane scrollPane;
-    protected static JTextArea textArea;
     // End of variables declaration//GEN-END:variables
 }
