@@ -50,6 +50,10 @@ public class Maze implements Serializable {
      * Minimum maze size.
      */
     public static final int MIN_SIZE = 20;
+
+    /**
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = 1L;
 
     /**
