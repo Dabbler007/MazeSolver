@@ -82,12 +82,12 @@ public class Maze implements Serializable {
         return output;
     }
 
-    /*
+    /**
      * Exit point.
      */
     private Point exit;
 
-    /*
+    /**
      * Data structure holding grid data.<br>
      * char '#' for wall <br>
      * char '.' for space<br>
@@ -95,7 +95,7 @@ public class Maze implements Serializable {
      */
     private int[][] grid = null;
 
-    /*
+    /**
      * Start point.
      */
     private Point start;
