@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -486,6 +487,13 @@ public class MazeSolverFrame extends javax.swing.JFrame {
         String output = "Error loading License Text";
         String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
         String propertiesPath = rootPath + "ie/homelab/mazesolver/license.properties";
+        String fs = System.getProperty("file.separator");
+        String os = System.getProperty("os.name");
+        if(!fs.equals("/") && os.contains("Windows")){
+            // Snip off leading '/'
+            propertiesPath = propertiesPath.substring(1,propertiesPath.length());
+            propertiesPath = propertiesPath.replaceAll("/", Matcher.quoteReplacement(fs));
+        }
         Properties licenseProperties = new Properties();
         try {
             licenseProperties.load(new FileInputStream(propertiesPath));
