@@ -19,9 +19,10 @@ package ie.homelab.mazesolver;
  */
 import ie.homelab.mazesolver.model.Maze;
 import ie.homelab.mazesolver.model.Maze.Point;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -87,14 +88,14 @@ public class MazeResolver {
 
         // Exit point distance from exit is 0
         distance[maze.getExit().x()][maze.getExit().y()] = 0;
-        Stack<Point> stack = new Stack<>();
+        Deque<Point> stack = new ArrayDeque<>();
         // Make exit start point for reversing the maze.
         stack.push(maze.getExit());
 
         Point current;
         int currentDistance;
         List<Point> neighbours;
-        while (!stack.empty()) {
+        while (!stack.isEmpty()) {
             current = stack.pop();
             currentDistance = distance[current.x()][current.y()];
             // Find neighbours for cell at top of stack
