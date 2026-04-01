@@ -10,6 +10,7 @@
         <word>homelab</word>
         <word>ie</word>
         <word>MazeSolver</word>
+        <word>Ok</word>        
     </spellchecker-wordlist>
     <config-data xmlns="http://www.netbeans.org/ns/maven-config-data/1">
         <configurations>
