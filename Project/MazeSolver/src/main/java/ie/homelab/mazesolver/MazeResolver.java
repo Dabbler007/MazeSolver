@@ -41,7 +41,7 @@ public class MazeResolver {
     /**
      * Search distance.
      */
-    private static int DIST = 1;
+    private static final int DIST = 1;
 
     /**
      * Search directions.

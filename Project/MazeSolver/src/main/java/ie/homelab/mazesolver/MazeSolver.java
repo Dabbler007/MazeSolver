@@ -71,7 +71,7 @@ public class MazeSolver {
                 output = true;
             }
         } catch (final NumberFormatException ex) {
-            LOGGER.log(Level.INFO,"Invalid entry, try again!");
+            LOGGER.log(Level.INFO, "Invalid entry, try again!");
         }
 
         return output;
@@ -108,8 +108,8 @@ public class MazeSolver {
                     validSize = validateMazeSize(rawSize);
                     if (validSize) {
                         mazeSize = Integer.parseInt(rawSize);
-                    }else {
-                        LOGGER.log(Level.INFO,"Invalid entry, try again!");
+                    } else {
+                        LOGGER.log(Level.INFO, "Invalid entry, try again!");
                     }
                 } while (!validSize);
             } else {
@@ -121,7 +121,7 @@ public class MazeSolver {
                     sb.append("Invalid parameter in command line ");
                     sb.append("- Defaulting to ");
                     sb.append(Maze.DEFAULT_SIZE);
-                    LOGGER.log(Level.INFO, "{}",sb );
+                    LOGGER.log(Level.INFO, "{}", sb);
                 } else {
                     LOGGER.log(Level.INFO, "-- Launching from argument --");
                 }
@@ -150,7 +150,7 @@ public class MazeSolver {
         } else {
             if (LOGGER.isLoggable(Level.INFO)) {
                 LOGGER.log(Level.INFO, "-- OS does not support a console --");
-                LOGGER.log(Level.INFO,"-- Try running program using java instead of javaw --");
+                LOGGER.log(Level.INFO, "-- Try running program using java instead of javaw --");
             }
         }
 
