@@ -1,3 +1,9 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+
+    "java.format.settings.profile": "GoogleStyle",
+
+    "editor.rulers": [120],
+    
+    "java.debug.settings.vmArgs": "-ea"
 }
