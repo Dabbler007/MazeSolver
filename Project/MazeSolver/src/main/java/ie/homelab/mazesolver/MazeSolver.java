@@ -1,26 +1,25 @@
 package ie.homelab.mazesolver;
 
-/*
- * Copyright (C) 2025 Derek Fitzsimons
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */
 import ie.homelab.mazesolver.model.Maze;
 import java.io.Console;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+/*
+ * Copyright (C) 2025 Derek Fitzsimons
+ *
+ * This program is free software; you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program; if
+ * not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ */
 
 /**
  * Maze Solver implemented in Java (JDK 21).
@@ -60,6 +59,7 @@ public class MazeSolver {
      * Validate input for maze size.
      *
      * @param rawSize input value.
+     * 
      * @return valid true/false.
      */
     private static boolean validateMazeSize(final String rawSize) {
@@ -138,14 +138,13 @@ public class MazeSolver {
             if (LOGGER.isLoggable(Level.FINE)) {
                 LOGGER.log(Level.FINE, maze.toString());
             }
-            
+
             // Resolve
             MazeResolver resolver = new MazeResolver(maze);
             resolver.resolveMaze();
             System.out.println(maze.toString());
             System.out.println("Path: " + resolver.getPointDistance(maze.getStart()));
             System.out.println("\n");
-            // }
 
         } else {
             if (LOGGER.isLoggable(Level.INFO)) {
