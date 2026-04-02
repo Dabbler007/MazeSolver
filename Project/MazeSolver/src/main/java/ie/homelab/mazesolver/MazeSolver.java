@@ -90,41 +90,12 @@ public class MazeSolver {
             System.out.println("\n");
 
             int mazeSize = Maze.DEFAULT_SIZE;
-            boolean validSize = false;
-            String rawSize;
 
             // Check for program arguments
             if (args.length == 0) {
-                StringBuilder sb = new StringBuilder();
-
-                do {
-                    sb.setLength(0);
-                    sb.append("Enter a number (");
-                    sb.append(Maze.MIN_SIZE).append("-");
-                    sb.append(Maze.MAX_SIZE);
-                    sb.append(") for initial maze size: ");
-                    System.out.print(sb.toString());
-                    rawSize = con.readLine();
-                    validSize = validateMazeSize(rawSize);
-                    if (validSize) {
-                        mazeSize = Integer.parseInt(rawSize);
-                    } else {
-                        LOGGER.log(Level.INFO, "Invalid entry, try again!");
-                    }
-                } while (!validSize);
+                mazeSize = inputProgramArguments(con, mazeSize);
             } else {
-                // Try to validate program argument
-                rawSize = args[0];
-                validSize = validateMazeSize(rawSize);
-                if (!validSize) {
-                    StringBuilder sb = new StringBuilder();
-                    sb.append("Invalid parameter in command line ");
-                    sb.append("- Defaulting to ");
-                    sb.append(Maze.DEFAULT_SIZE);
-                    LOGGER.log(Level.INFO, "{}", sb);
-                } else {
-                    LOGGER.log(Level.INFO, "-- Launching from argument --");
-                }
+                readProgramArguments(args);
             }
 
             // Initialise
@@ -154,6 +125,45 @@ public class MazeSolver {
         }
 
         System.out.println("-- Ending Maze Solver --");
+    }
+
+    private static void readProgramArguments(final String[] args) {
+        String rawSize;
+        boolean validSize;
+        // Try to validate program argument
+        rawSize = args[0];
+        validSize = validateMazeSize(rawSize);
+        if (!validSize) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Invalid parameter in command line ");
+            sb.append("- Defaulting to ");
+            sb.append(Maze.DEFAULT_SIZE);
+            LOGGER.log(Level.INFO, "{}", sb);
+        } else {
+            LOGGER.log(Level.INFO, "-- Launching from argument --");
+        }
+    }
+
+    private static int inputProgramArguments(Console con, int mazeSize) throws NumberFormatException {
+        String rawSize;
+        boolean validSize;
+        StringBuilder sb = new StringBuilder();
+        do {
+            sb.setLength(0);
+            sb.append("Enter a number (");
+            sb.append(Maze.MIN_SIZE).append("-");
+            sb.append(Maze.MAX_SIZE);
+            sb.append(") for initial maze size: ");
+            System.out.print(sb.toString());
+            rawSize = con.readLine();
+            validSize = validateMazeSize(rawSize);
+            if (validSize) {
+                mazeSize = Integer.parseInt(rawSize);
+            } else {
+                LOGGER.log(Level.INFO, "Invalid entry, try again!");
+            }
+        } while (!validSize);
+        return mazeSize;
     }
 
 }
