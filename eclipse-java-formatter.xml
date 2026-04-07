@@ -438,7 +438,7 @@
             value="insert" />
         <setting id="org.eclipse.jdt.core.formatter.indent_body_declarations_compare_to_enum_constant_header"
             value="true" />
-        <setting id="org.eclipse.jdt.core.formatter.insert_space_after_semicolon_in_for"value="insert" />
+        <setting id="org.eclipse.jdt.core.formatter.insert_space_after_semicolon_in_for" value="insert" />
         <setting id="org.eclipse.jdt.core.formatter.never_indent_line_comments_on_first_column" value="false" />
         <setting id="org.eclipse.jdt.core.formatter.insert_space_before_semicolon_in_try_resources" value="do not insert" />
         <setting id="org.eclipse.jdt.core.formatter.alignment_for_for_statement" value="16" />
