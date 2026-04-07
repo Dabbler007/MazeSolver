@@ -81,7 +81,6 @@
                 <configuration>
                     <configLocation>./config/custom_checkstyle.xml</configLocation>
                     <lineLength>120</lineLength>
-                    <!--<charset>UTF-8</charset>-->
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>false</failsOnError>
                     <linkXRef>false</linkXRef>
@@ -116,7 +115,6 @@
                 <configuration>
                     <configLocation>./config/google_checks.xml</configLocation>
                     <lineLength>120</lineLength>
-                    <!--<charset>UTF-8</charset>-->
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>false</failsOnError>
                     <linkXRef>false</linkXRef>
