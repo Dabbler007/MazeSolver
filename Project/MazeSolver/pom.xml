@@ -8,7 +8,7 @@
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>21</maven.compiler.release>
+        <maven.compiler.release>25</maven.compiler.release>
         <exec.mainClass>ie.homelab.mazesolver.MazeSolver</exec.mainClass>
 		<sonar.organization>dabbler007</sonar.organization>
     </properties>
