@@ -3,22 +3,20 @@ package ie.homelab.mazesolver;
 /*
  * Copyright (C) 2026 derek
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * You should have received a copy of the GNU General Public License along with this program; if
+ * not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
  */
 import ie.homelab.mazesolver.model.Maze;
-import ie.homelab.mazesolver.model.Maze.Point;
+import ie.homelab.mazesolver.model.Point;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -82,15 +80,15 @@ public class MazeResolver {
         final boolean output = true;
 
         // Track distances travelled from each point
-        distance = new int[maze.getGrid().length - 1][maze.getGrid().length - 1];
+        distance = new int[Maze.getGrid().length - 1][Maze.getGrid().length - 1];
 
         distance = initialiseDistances(distance);
 
         // Exit point distance from exit is 0
-        distance[maze.getExit().x()][maze.getExit().y()] = 0;
+        distance[Maze.getExit().x()][Maze.getExit().y()] = 0;
         Deque<Point> stack = new ArrayDeque<>();
         // Make exit start point for reversing the maze.
-        stack.push(maze.getExit());
+        stack.push(Maze.getExit());
 
         Point current;
         int currentDistance;
@@ -121,7 +119,7 @@ public class MazeResolver {
     /**
      * Get list of unvisited neighbours to point p.
      *
-     * @param p Point in the grid.
+     * @param p    Point in the grid.
      * @param grid Grid data.
      * @return List of Points.
      */
@@ -136,8 +134,9 @@ public class MazeResolver {
             ny = p.y() + dir[1];
 
             // Unvisited Neighbours are in bounds and contain an unvisited value.
-            if (Maze.isInBounds(nx, ny) && distance[nx][ny] <= -1 && maze.getGrid()[nx][ny] != '#') {
-                output.add(new Maze.Point(nx, ny));
+            if (Maze.isInBounds(nx, ny) && distance[nx][ny] <= -1
+                            && Maze.getGrid()[nx][ny] != '#') {
+                output.add(new Point(nx, ny));
             }
         }
         return output;

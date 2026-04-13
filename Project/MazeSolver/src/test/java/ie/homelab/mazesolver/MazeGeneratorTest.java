@@ -31,21 +31,24 @@ import static org.junit.Assert.*;
 public class MazeGeneratorTest {
 
     Maze maze = null;
-    
+
     public MazeGeneratorTest() {
+        // Default constructor
     }
 
     @BeforeClass
     public static void setUpClass() {
+        // Setup before all tests
     }
 
     @AfterClass
     public static void tearDownClass() {
+        // Cleanup after all tests
     }
 
     @Before
     public void setUp() {
-        maze = new Maze();
+        maze = Maze.getInstance();
     }
 
     @After
@@ -59,24 +62,25 @@ public class MazeGeneratorTest {
     @Test
     public void testGenerateMaze() {
         System.out.println("generateDefaultMaze");
-        MazeGenerator instance = new MazeGenerator(maze);
+        MazeGenerator instance = new MazeGenerator();
         instance.generateMaze();
 
-        assertTrue(instance != null);
-        assertTrue(maze.getGrid().length == (Maze.DEFAULT_SIZE+1));
+        assertNotNull(instance);
+        assertEquals(Maze.getGrid().length, (Maze.DEFAULT_SIZE + 1));
     }
 
-        /**
+    /**
      * Test of generateMaze method, of class MazeGenerator.
      */
     @Test
     public void testDefaultGenerateMaze() {
         System.out.println("generateMaze");
-        maze = new Maze(100);
-        MazeGenerator instance = new MazeGenerator(maze);
+        Maze.setMazeSize(100);
+        MazeGenerator instance = new MazeGenerator();
+
         instance.generateMaze();
 
-        assertTrue(instance != null);
-        assertTrue(maze.getGrid().length == 101);
+        assertNotNull(instance);
+        assertEquals(101,Maze.getGrid().length);
     }
 }

@@ -13,6 +13,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -32,6 +33,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
+import javax.swing.border.BevelBorder;
 
 /*
  * Copyright (C) 2026 derek
@@ -59,15 +61,12 @@ public class MazeSolverFrame extends javax.swing.JFrame {
     private static final long serialVersionUID = 1L;
 
     private String licenseText;
-    /**
-     * Maze data structure.
-     */
-    protected static Maze maze;
 
     /**
      * Creates new form MazeSolverFrame.
      */
     public MazeSolverFrame() {
+        super();
         licenseText = loadLicenseText();
         initComponents();
 
@@ -83,21 +82,22 @@ public class MazeSolverFrame extends javax.swing.JFrame {
 
         initMaze(selectedSize);
 
-        MazeGenerator mazeGenerator = new MazeGenerator(maze);
+        MazeGenerator mazeGenerator = new MazeGenerator();
         mazeGenerator.generateMaze();
-        sb.append(maze);
+        Maze instance = Maze.getInstance();
+        sb.append(instance.toString());
         sb.append("\n\n");
 
-        MazeResolver resolver = new MazeResolver(maze);
+        MazeResolver resolver = new MazeResolver();
         resolver.resolveMaze();
-        sb.append(maze);
-        sb.append("Path: ").append(resolver.getPointDistance(maze.getStart()));
+
+        sb.append(instance.toString());
+        sb.append("Path: ").append(resolver.getPointDistance(Maze.getStart()));
         sb.append("\n\n");
 
         sb.append("-- Ending Maze Solver --\n");
 
-        MazePanel mp = new MazePanel(maze);
-        mp.setVisible(true);
+        MazePanel mp = new MazePanel(true);
         displayPanel.add(mp);
         displayPanel.repaint();
     }
@@ -109,6 +109,7 @@ public class MazeSolverFrame extends javax.swing.JFrame {
      *                 {@link ie.homelab.mazesolver.model.Maze#MAX_SIZE}
      */
     public MazeSolverFrame(final int mazeSize) {
+        super();
         licenseText = loadLicenseText();
         initComponents();
 
@@ -116,20 +117,21 @@ public class MazeSolverFrame extends javax.swing.JFrame {
 
         initMaze(mazeSize);
 
-        MazeGenerator mazeGenerator = new MazeGenerator(maze);
+        Maze instance = Maze.getInstance();
+        MazeGenerator mazeGenerator = new MazeGenerator();
         mazeGenerator.generateMaze();
-        sb.append(maze);
+        sb.append(instance.toString());
         sb.append("\n\n");
 
-        MazeResolver resolver = new MazeResolver(maze);
+        MazeResolver resolver = new MazeResolver();
         resolver.resolveMaze();
-        sb.append(maze);
-        sb.append("Path: ").append(resolver.getPointDistance(maze.getStart()));
+        sb.append(instance.toString());
+        sb.append("Path: ").append(resolver.getPointDistance(Maze.getStart()));
         sb.append("\n\n");
 
         sb.append("-- Ending Maze Solver --\n");
 
-        MazePanel mp = new MazePanel(maze);
+        MazePanel mp = new MazePanel(true);
         mp.setVisible(true);
         displayPanel.add(mp);
         displayPanel.repaint();
@@ -141,7 +143,7 @@ public class MazeSolverFrame extends javax.swing.JFrame {
      */
 
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         aboutDialog = new JDialog();
@@ -194,30 +196,31 @@ public class MazeSolverFrame extends javax.swing.JFrame {
         GroupLayout aboutDialogLayout = new GroupLayout(aboutDialog.getContentPane());
         aboutDialog.getContentPane().setLayout(aboutDialogLayout);
         aboutDialogLayout.setHorizontalGroup(aboutDialogLayout.createParallelGroup(Alignment.LEADING)
-                .addGroup(aboutDialogLayout.createSequentialGroup()
-                        .addGap(157, 157, 157)
-                        .addComponent(closeButton)
-                        .addContainerGap(171, Short.MAX_VALUE))
-                .addComponent(aboutTitle, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-                        Short.MAX_VALUE)
-                .addGroup(aboutDialogLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(aboutDialogLayout.createParallelGroup(Alignment.LEADING)
-                                .addComponent(aboutScrollPane, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addComponent(copyLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-                                        Short.MAX_VALUE))
-                        .addContainerGap()));
+            .addGroup(aboutDialogLayout.createSequentialGroup()
+                .addGap(157, 157, 157)
+                .addComponent(closeButton)
+                .addContainerGap(171, Short.MAX_VALUE))
+            .addComponent(aboutTitle,
+                 Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(aboutDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(aboutDialogLayout.createParallelGroup(Alignment.LEADING)
+                    .addComponent(aboutScrollPane, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(copyLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
         aboutDialogLayout.setVerticalGroup(aboutDialogLayout.createParallelGroup(Alignment.LEADING)
-                .addGroup(aboutDialogLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(aboutTitle)
-                        .addGap(18, 18, 18)
-                        .addComponent(copyLabel)
-                        .addGap(12, 12, 12)
-                        .addComponent(aboutScrollPane, GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(closeButton)
-                        .addContainerGap()));
+            .addGroup(aboutDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(aboutTitle)
+                .addGap(18, 18, 18)
+                .addComponent(copyLabel)
+                .addGap(12, 12, 12)
+                .addComponent(aboutScrollPane, GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(closeButton)
+                .addContainerGap())
+        );
 
         sizeDialog.setAlwaysOnTop(true);
         sizeDialog.setLocationByPlatform(true);
@@ -241,32 +244,34 @@ public class MazeSolverFrame extends javax.swing.JFrame {
         GroupLayout sizeDialogLayout = new GroupLayout(sizeDialog.getContentPane());
         sizeDialog.getContentPane().setLayout(sizeDialogLayout);
         sizeDialogLayout.setHorizontalGroup(sizeDialogLayout.createParallelGroup(Alignment.LEADING)
-                .addGroup(sizeDialogLayout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addGroup(sizeDialogLayout.createParallelGroup(Alignment.TRAILING)
-                                .addComponent(sizeButton)
-                                .addGroup(sizeDialogLayout.createSequentialGroup()
-                                        .addComponent(sizeTitle)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(mazeSizeSpinner, GroupLayout.PREFERRED_SIZE,
-                                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(161, Short.MAX_VALUE))
-                .addGroup(sizeDialogLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(spinnerLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap()));
+            .addGroup(sizeDialogLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(sizeDialogLayout.createParallelGroup(Alignment.TRAILING)
+                    .addComponent(sizeButton)
+                    .addGroup(sizeDialogLayout.createSequentialGroup()
+                        .addComponent(sizeTitle)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(mazeSizeSpinner,
+                             GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(161, Short.MAX_VALUE))
+            .addGroup(sizeDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(spinnerLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
         sizeDialogLayout.setVerticalGroup(sizeDialogLayout.createParallelGroup(Alignment.LEADING)
-                .addGroup(sizeDialogLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(spinnerLabel)
-                        .addGap(61, 61, 61)
-                        .addGroup(sizeDialogLayout.createParallelGroup(Alignment.BASELINE)
-                                .addComponent(sizeTitle)
-                                .addComponent(mazeSizeSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                                        GroupLayout.PREFERRED_SIZE))
-                        .addGap(42, 42, 42)
-                        .addComponent(sizeButton)
-                        .addContainerGap(115, Short.MAX_VALUE)));
+            .addGroup(sizeDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(spinnerLabel)
+                .addGap(61, 61, 61)
+                .addGroup(sizeDialogLayout.createParallelGroup(Alignment.BASELINE)
+                    .addComponent(sizeTitle)
+                    .addComponent(mazeSizeSpinner,
+                         GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addComponent(sizeButton)
+                .addContainerGap(115, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Maze Solver");
@@ -274,41 +279,47 @@ public class MazeSolverFrame extends javax.swing.JFrame {
         setSize(new Dimension(400, 800));
 
         mainPanel.setMinimumSize(new Dimension(200, 200));
-        mainPanel.setPreferredSize(new Dimension(400, 400));
+        mainPanel.setPreferredSize(new Dimension(520, 520));
 
+        scrollPane.setViewportBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        scrollPane.setDoubleBuffered(true);
         scrollPane.setMinimumSize(new Dimension(200, 200));
         scrollPane.setViewportView(displayPanel);
 
         displayPanel.setMinimumSize(new Dimension(200, 200));
         displayPanel.setName(""); // NOI18N
+        displayPanel.setPreferredSize(new Dimension(512, 512));
 
         GroupLayout displayPanelLayout = new GroupLayout(displayPanel);
         displayPanel.setLayout(displayPanelLayout);
         displayPanelLayout.setHorizontalGroup(displayPanelLayout.createParallelGroup(Alignment.LEADING)
-                .addGap(0, 441, Short.MAX_VALUE));
+            .addGap(0, 522, Short.MAX_VALUE)
+        );
         displayPanelLayout.setVerticalGroup(displayPanelLayout.createParallelGroup(Alignment.LEADING)
-                .addGap(0, 512, Short.MAX_VALUE));
+            .addGap(0, 522, Short.MAX_VALUE)
+        );
 
         scrollPane.setViewportView(displayPanel);
 
         GroupLayout mainPanelLayout = new GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(mainPanelLayout.createParallelGroup(Alignment.LEADING)
-                .addGap(0, 488, Short.MAX_VALUE)
-                .addGroup(mainPanelLayout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(mainPanelLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-                                        Short.MAX_VALUE)
-                                .addGap(0, 0, Short.MAX_VALUE))));
+            .addGap(0, 533, Short.MAX_VALUE)
+            .addGroup(mainPanelLayout.createParallelGroup(Alignment.LEADING)
+                .addGroup(mainPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(scrollPane,
+                         GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
+        );
         mainPanelLayout.setVerticalGroup(mainPanelLayout.createParallelGroup(Alignment.LEADING)
-                .addGap(0, 425, Short.MAX_VALUE)
-                .addGroup(mainPanelLayout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(mainPanelLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-                                        Short.MAX_VALUE)
-                                .addGap(0, 0, Short.MAX_VALUE))));
+            .addGap(0, 419, Short.MAX_VALUE)
+            .addGroup(mainPanelLayout.createParallelGroup(Alignment.LEADING)
+                .addGroup(Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 413, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
+        );
 
         fileMenu.setText("File");
 
@@ -331,12 +342,16 @@ public class MazeSolverFrame extends javax.swing.JFrame {
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(mainPanel, GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
-                        .addContainerGap()));
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(mainPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
         layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING)
-                .addComponent(mainPanel, GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE));
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(mainPanel, GroupLayout.PREFERRED_SIZE, 512, GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 66, Short.MAX_VALUE))
+        );
 
         pack();
     } // </editor-fold>//GEN-END:initComponents
@@ -414,6 +429,7 @@ public class MazeSolverFrame extends javax.swing.JFrame {
             int tempSize;
             boolean invalidSize = validateMazeSize(args[0]);
             if (invalidSize) {
+                
                 // Just run with the default value
                 EventQueue.invokeLater(
                                 () -> new MazeSolverFrame(Maze.DEFAULT_SIZE).setVisible(true));
@@ -445,9 +461,7 @@ public class MazeSolverFrame extends javax.swing.JFrame {
      * @param mazeSize int value in the range MIN_SIZE - MAX_SIZE
      */
     protected static void initMaze(final int mazeSize) {
-
-        maze = new Maze(mazeSize);
-
+        Maze.setMazeSize(mazeSize);
     }
 
     /**

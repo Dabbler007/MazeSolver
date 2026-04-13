@@ -52,7 +52,7 @@ public class MazeSolver {
      */
     private static void initMaze(final int mazeSize) {
 
-        maze = new Maze(mazeSize);
+        maze = Maze.getInstance();
     }
 
     /**
@@ -104,7 +104,7 @@ public class MazeSolver {
                 LOGGER.log(Level.FINE, maze.toString());
             }
             // Generate
-            MazeGenerator mazeGenerator = new MazeGenerator(maze);
+            MazeGenerator mazeGenerator = new MazeGenerator();
             mazeGenerator.generateMaze();
             if (LOGGER.isLoggable(Level.FINE)) {
                 LOGGER.log(Level.FINE, maze.toString());
@@ -114,7 +114,7 @@ public class MazeSolver {
             MazeResolver resolver = new MazeResolver(maze);
             resolver.resolveMaze();
             System.out.println(maze.toString());
-            System.out.println("Path: " + resolver.getPointDistance(maze.getStart()));
+            System.out.println("Path: " + resolver.getPointDistance(Maze.getStart()));
             System.out.println("\n");
 
         } else {
@@ -144,7 +144,8 @@ public class MazeSolver {
         }
     }
 
-    private static int inputProgramArguments(Console con, int mazeSize) throws NumberFormatException {
+    private static int inputProgramArguments(Console con, int mazeSize)
+                    throws NumberFormatException {
         String rawSize;
         boolean validSize;
         StringBuilder sb = new StringBuilder();
