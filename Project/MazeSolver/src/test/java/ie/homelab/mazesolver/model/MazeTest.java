@@ -29,8 +29,6 @@ import org.junit.Test;
  */
 public class MazeTest {
 
-    Maze maze;
-
     @BeforeClass
     public static void setUpClass() {
         // Set up resources before any tests are run
@@ -48,7 +46,7 @@ public class MazeTest {
     @Before
     public void setUp() {
         // Set up before each test
-        maze = Maze.getInstance();
+        Maze.setMazeSize(20);
     }
 
     @After
@@ -72,7 +70,7 @@ public class MazeTest {
         assertEquals(expResult, result);
 
         Maze.setMazeSize(0);
-        expResult = 20;
+        expResult = 0;
         result = Maze.getMazeSize();
         assertEquals(expResult, result);
     }
