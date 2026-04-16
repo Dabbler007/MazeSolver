@@ -2,6 +2,7 @@ package ie.homelab.mazesolver;
 
 import ie.homelab.mazesolver.model.Maze;
 import ie.homelab.mazesolver.view.MazePanel;
+import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -27,6 +28,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
@@ -98,7 +100,7 @@ public class MazeSolverFrame extends javax.swing.JFrame {
         sb.append("-- Ending Maze Solver --\n");
 
         MazePanel mp = new MazePanel(true);
-        displayPanel.add(mp);
+        displayPanel.add(mp,BorderLayout.CENTER);
         displayPanel.repaint();
     }
 
@@ -133,7 +135,7 @@ public class MazeSolverFrame extends javax.swing.JFrame {
 
         MazePanel mp = new MazePanel(true);
         mp.setVisible(true);
-        displayPanel.add(mp);
+        displayPanel.add(mp,BorderLayout.CENTER);
         displayPanel.repaint();
     }
 
@@ -200,8 +202,7 @@ public class MazeSolverFrame extends javax.swing.JFrame {
                 .addGap(157, 157, 157)
                 .addComponent(closeButton)
                 .addContainerGap(171, Short.MAX_VALUE))
-            .addComponent(aboutTitle,
-                 Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(aboutTitle, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(aboutDialogLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(aboutDialogLayout.createParallelGroup(Alignment.LEADING)
@@ -251,8 +252,7 @@ public class MazeSolverFrame extends javax.swing.JFrame {
                     .addGroup(sizeDialogLayout.createSequentialGroup()
                         .addComponent(sizeTitle)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(mazeSizeSpinner,
-                             GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(mazeSizeSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(161, Short.MAX_VALUE))
             .addGroup(sizeDialogLayout.createSequentialGroup()
                 .addContainerGap()
@@ -266,8 +266,7 @@ public class MazeSolverFrame extends javax.swing.JFrame {
                 .addGap(61, 61, 61)
                 .addGroup(sizeDialogLayout.createParallelGroup(Alignment.BASELINE)
                     .addComponent(sizeTitle)
-                    .addComponent(mazeSizeSpinner,
-                         GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(mazeSizeSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addComponent(sizeButton)
                 .addContainerGap(115, Short.MAX_VALUE))
@@ -284,41 +283,28 @@ public class MazeSolverFrame extends javax.swing.JFrame {
         scrollPane.setViewportBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         scrollPane.setDoubleBuffered(true);
         scrollPane.setMinimumSize(new Dimension(200, 200));
+        scrollPane.setPreferredSize(new Dimension(530, 518));
         scrollPane.setViewportView(displayPanel);
 
         displayPanel.setMinimumSize(new Dimension(200, 200));
         displayPanel.setName(""); // NOI18N
         displayPanel.setPreferredSize(new Dimension(512, 512));
-
-        GroupLayout displayPanelLayout = new GroupLayout(displayPanel);
-        displayPanel.setLayout(displayPanelLayout);
-        displayPanelLayout.setHorizontalGroup(displayPanelLayout.createParallelGroup(Alignment.LEADING)
-            .addGap(0, 522, Short.MAX_VALUE)
-        );
-        displayPanelLayout.setVerticalGroup(displayPanelLayout.createParallelGroup(Alignment.LEADING)
-            .addGap(0, 522, Short.MAX_VALUE)
-        );
-
+        displayPanel.setLayout(new BorderLayout());
         scrollPane.setViewportView(displayPanel);
 
         GroupLayout mainPanelLayout = new GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(mainPanelLayout.createParallelGroup(Alignment.LEADING)
-            .addGap(0, 533, Short.MAX_VALUE)
-            .addGroup(mainPanelLayout.createParallelGroup(Alignment.LEADING)
-                .addGroup(mainPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(scrollPane,
-                         GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+            .addGroup(Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
+                .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(mainPanelLayout.createParallelGroup(Alignment.LEADING)
-            .addGap(0, 419, Short.MAX_VALUE)
-            .addGroup(mainPanelLayout.createParallelGroup(Alignment.LEADING)
-                .addGroup(Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 413, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 553, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         fileMenu.setText("File");
@@ -349,12 +335,12 @@ public class MazeSolverFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(mainPanel, GroupLayout.PREFERRED_SIZE, 512, GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 66, Short.MAX_VALUE))
+                .addComponent(mainPanel, GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
-    } // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     /**
      * Handler for about dialog close button click.
