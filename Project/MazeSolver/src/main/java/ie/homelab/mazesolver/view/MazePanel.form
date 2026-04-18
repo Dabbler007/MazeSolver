@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <Properties>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="0" green="0" red="0" type="rgb"/>
+    </Property>
+    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+      <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+        <EmptyBorder bottom="5" left="5" right="5" top="5"/>
+      </Border>
+    </Property>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -16,10 +26,10 @@
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
     <Property name="columns" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-      <Connection code="maze.getGrid().length&#xa;" type="code"/>
+      <Connection code="Maze.getGrid().length" type="code"/>
     </Property>
     <Property name="rows" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-      <Connection code="maze.getGrid().length&#xa;" type="code"/>
+      <Connection code="Maze.getGrid().length" type="code"/>
     </Property>
   </Layout>
 </Form>
