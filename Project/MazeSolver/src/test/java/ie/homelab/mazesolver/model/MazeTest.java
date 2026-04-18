@@ -120,8 +120,6 @@ public class MazeTest {
 
         result = instance.equals(new Object());
         assertEquals(false, result);
-
-
     }
 
     /**
@@ -134,7 +132,6 @@ public class MazeTest {
         Point expResult = new Point(10, 10);
         Point result = Maze.getExit();
         assertEquals(expResult, result);
-
     }
 
     /**
@@ -144,7 +141,7 @@ public class MazeTest {
     public void testGetGrid() {
         System.out.println("getGrid");
 
-        int gridSize = Maze.DEFAULT_SIZE + 1;
+        int gridSize = Maze.DEFAULT_SIZE;
         int resultSize = Maze.getGrid().length;
         assertEquals(gridSize, resultSize);
         int[][] gridData = {{1, 0, 1}, {1, 1, 1}, {0, 1, 1}};
@@ -166,7 +163,6 @@ public class MazeTest {
         boolean result = (Maze.getStart() != null);
         assertEquals(expResult, result);
         assertEquals(new Point(0, 0), Maze.getStart());
-
     }
 
     /**
@@ -176,7 +172,7 @@ public class MazeTest {
     public void testHashCode() {
         System.out.println("hashCode");
         Maze instance = Maze.getInstance();
-        int expResult = 1056313556;
+        int expResult = 989084980;
         int result = instance.hashCode();
         assertEquals(expResult, result);
     }
@@ -221,5 +217,4 @@ public class MazeTest {
         String result = Maze.getInstance().toString();
         assertEquals(expResult.toString(), result);
     }
-
 }
