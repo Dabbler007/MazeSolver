@@ -16,6 +16,8 @@
 
 package ie.homelab.mazesolver.model;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -120,6 +122,20 @@ public class MazeTest {
 
         result = instance.equals(new Object());
         assertEquals(false, result);
+        
+        Maze.setMazeSize(20);
+        obj = null;
+        instance = Maze.getInstance();
+        expResult = false;
+        result = instance.equals(obj); 
+        assertEquals(expResult,result);
+        
+        Maze.setMazeSize(27);
+        obj = "";
+        instance = Maze.getInstance();
+        expResult = false;
+        result = instance.equals(obj); 
+        assertEquals(expResult,result);
     }
 
     /**
@@ -215,6 +231,12 @@ public class MazeTest {
         Maze.setStart(new Point(0, 0));
         Maze.setExit(new Point(19, 19));
         String result = Maze.getInstance().toString();
+        assertEquals(expResult.toString(), result);
+        
+        // Parent logger of Maze logger.
+        Logger log = Logger.getLogger("ie.homelab.mazesolver.model");
+        log.setLevel(Level.FINE);
+        result = Maze.getInstance().toString();
         assertEquals(expResult.toString(), result);
     }
 }
