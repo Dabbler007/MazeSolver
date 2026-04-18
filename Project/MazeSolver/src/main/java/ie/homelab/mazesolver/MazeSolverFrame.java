@@ -28,7 +28,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
@@ -78,29 +77,30 @@ public class MazeSolverFrame extends javax.swing.JFrame {
 
         sizeDialog.setModal(true);
         sizeDialog.setVisible(true);
-        int selectedSize = (Integer) mazeSizeSpinner.getModel().getValue();
-
-        StringBuilder sb = new StringBuilder();
-
+        int selectedSize = (Integer) mazeSizeSpinner.getModel().getValue();       
         initMaze(selectedSize);
 
         MazeGenerator mazeGenerator = new MazeGenerator();
         mazeGenerator.generateMaze();
         Maze instance = Maze.getInstance();
-        sb.append(instance.toString());
-        sb.append("\n\n");
-
         MazeResolver resolver = new MazeResolver();
         resolver.resolveMaze();
+        
+        if (LOGGER.isLoggable(Level.FINE)) {
+            final StringBuilder sb = new StringBuilder();
+            sb.append(instance.toString());
+            sb.append("\n\n");
+            sb.append(instance.toString());
+            sb.append("Path: ").append(resolver.getPointDistance(Maze.getStart()));
+            sb.append("\n\n");
 
-        sb.append(instance.toString());
-        sb.append("Path: ").append(resolver.getPointDistance(Maze.getStart()));
-        sb.append("\n\n");
+            sb.append("-- Ending Maze Solver --\n");
 
-        sb.append("-- Ending Maze Solver --\n");
-
+            LOGGER.log(Level.FINE, sb.toString());
+        }
+        
         MazePanel mp = new MazePanel(true);
-        displayPanel.add(mp,BorderLayout.CENTER);
+        displayPanel.add(mp, BorderLayout.CENTER);
         displayPanel.repaint();
     }
 
@@ -114,28 +114,27 @@ public class MazeSolverFrame extends javax.swing.JFrame {
         super();
         licenseText = loadLicenseText();
         initComponents();
-
-        StringBuilder sb = new StringBuilder();
-
         initMaze(mazeSize);
 
         Maze instance = Maze.getInstance();
         MazeGenerator mazeGenerator = new MazeGenerator();
         mazeGenerator.generateMaze();
-        sb.append(instance.toString());
-        sb.append("\n\n");
-
         MazeResolver resolver = new MazeResolver();
         resolver.resolveMaze();
-        sb.append(instance.toString());
-        sb.append("Path: ").append(resolver.getPointDistance(Maze.getStart()));
-        sb.append("\n\n");
-
-        sb.append("-- Ending Maze Solver --\n");
-
+        
+        if (LOGGER.isLoggable(Level.FINE)) {
+            final StringBuilder sb = new StringBuilder();
+            sb.append(instance.toString());
+            sb.append("\n\n");
+            sb.append(instance.toString());
+            sb.append("Path: ").append(resolver.getPointDistance(Maze.getStart()));
+            sb.append("\n\n");
+            sb.append("-- Ending Maze Solver --\n");
+            LOGGER.log(Level.FINE, sb.toString());
+        }
         MazePanel mp = new MazePanel(true);
         mp.setVisible(true);
-        displayPanel.add(mp,BorderLayout.CENTER);
+        displayPanel.add(mp, BorderLayout.CENTER);
         displayPanel.repaint();
     }
 
@@ -202,8 +201,8 @@ public class MazeSolverFrame extends javax.swing.JFrame {
                 .addGap(157, 157, 157)
                 .addComponent(closeButton)
                 .addContainerGap(171, Short.MAX_VALUE))
-            .addComponent(aboutTitle, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(aboutDialogLayout.createSequentialGroup()
+            .addComponent(aboutTitle, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE,
+                 GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addGroup(aboutDialogLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(aboutDialogLayout.createParallelGroup(Alignment.LEADING)
                     .addComponent(aboutScrollPane, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -252,9 +251,9 @@ public class MazeSolverFrame extends javax.swing.JFrame {
                     .addGroup(sizeDialogLayout.createSequentialGroup()
                         .addComponent(sizeTitle)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(mazeSizeSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(161, Short.MAX_VALUE))
-            .addGroup(sizeDialogLayout.createSequentialGroup()
+                        .addComponent(mazeSizeSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                             GroupLayout.PREFERRED_SIZE))).addContainerGap(161, Short.MAX_VALUE))
+                .addGroup(sizeDialogLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(spinnerLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -266,8 +265,8 @@ public class MazeSolverFrame extends javax.swing.JFrame {
                 .addGap(61, 61, 61)
                 .addGroup(sizeDialogLayout.createParallelGroup(Alignment.BASELINE)
                     .addComponent(sizeTitle)
-                    .addComponent(mazeSizeSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
+                    .addComponent(mazeSizeSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                         GroupLayout.PREFERRED_SIZE)).addGap(42, 42, 42)
                 .addComponent(sizeButton)
                 .addContainerGap(115, Short.MAX_VALUE))
         );
@@ -340,7 +339,7 @@ public class MazeSolverFrame extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    } // </editor-fold>//GEN-END:initComponents
 
     /**
      * Handler for about dialog close button click.
@@ -426,7 +425,7 @@ public class MazeSolverFrame extends javax.swing.JFrame {
 
                 } catch (final NumberFormatException ex) {
 
-                    // Shouldn't happen as inp[ut already validated.
+                    // Shouldn't happen as input already validated.
                     tempSize = Maze.DEFAULT_SIZE;
                 }
                 // Next method Will only accept final values :)
@@ -464,15 +463,14 @@ public class MazeSolverFrame extends javax.swing.JFrame {
             if (tempSize >= Maze.MIN_SIZE && tempSize <= Maze.MAX_SIZE) {
                 output = true;
             }
-        } catch (final NumberFormatException ex) {
-            output = false;
+        } catch (NumberFormatException _) {
             if (LOGGER.isLoggable(Level.SEVERE)) {
-                LOGGER.log(Level.SEVERE, ex.getMessage());
+                LOGGER.log(Level.SEVERE, "Invalid number format for maze size: {0}", rawSize);
             }
 
         }
         return output;
-    }
+    } 
 
     /**
      * Load license text from properties file.
@@ -488,11 +486,11 @@ public class MazeSolverFrame extends javax.swing.JFrame {
         if (!fs.equals("/") && os.contains("Windows")) {
             // Snip off leading '/'
             propertiesPath = propertiesPath.substring(1, propertiesPath.length());
-            propertiesPath = propertiesPath.replaceAll("/", Matcher.quoteReplacement(fs));
+            propertiesPath = propertiesPath.replace("/", Matcher.quoteReplacement(fs));
         }
         Properties licenseProperties = new Properties();
-        try {
-            licenseProperties.load(new FileInputStream(propertiesPath));
+        try (FileInputStream fstream = new FileInputStream(propertiesPath)) {   
+            licenseProperties.load(fstream);
             licenseText = licenseProperties.getProperty("licenseText");
             output = licenseText;
         } catch (final IOException ex) {
