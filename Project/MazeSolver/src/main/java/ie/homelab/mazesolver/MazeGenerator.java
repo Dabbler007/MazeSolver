@@ -20,8 +20,10 @@ import ie.homelab.mazesolver.model.Point;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * Generate maze content.<br>
@@ -30,6 +32,11 @@ import java.util.Random;
  * @author derek
  */
 public class MazeGenerator {
+
+    /**
+     * Random instance for maze generation.
+     */
+    private final Random random = new Random();
 
     /**
      * Exit ASCII code 88 'X'.
@@ -79,7 +86,7 @@ public class MazeGenerator {
             ny = p.getY() + dir[1];
 
             // Unvisited Neighbours are in bounds and contain a wall or an exit.
-            if (Maze.isInBounds(nx, ny) && ((grid[nx][ny] == WALL || grid[nx][ny] == EXIT))) {
+            if (Maze.isInBounds(nx, ny) && grid[nx][ny] == WALL) {
                 output.add(new Point(nx, ny));
             }
         }
@@ -109,11 +116,11 @@ public class MazeGenerator {
             neighbours = getUnvisitedNeighbours(current);
             if (!neighbours.isEmpty()) {
                 // Select a random neighbour
-                Point nextPoint = neighbours.get(new Random().nextInt(neighbours.size()));
+                Point nextPoint = neighbours.get(random.nextInt(neighbours.size()));
                 wallX = (current.getX() + nextPoint.getX()) / 2;
                 wallY = (current.getY() + nextPoint.getY()) / 2;
                 if (grid[wallX][wallY] != EXIT) {
-                    grid[wallX][wallY] = '.'; // Mark the wall between current and next as path.
+                    grid[wallX][wallY] = PATH; // Mark the wall between current and next as path.
                 }
                 // Mark neighbour as path and move on.
                 if (grid[nextPoint.getX()][nextPoint.getY()] != EXIT) {
@@ -136,12 +143,27 @@ public class MazeGenerator {
     private int edgePosition() {
         int z;
         // z must be 0 or mazeSize - 1
-        if (new Random().nextBoolean() == true) {
+        if (random.nextBoolean()) {
             z = 0;
         } else {
             z = Maze.getMazeSize() - 1;
         }
         return z;
+    }
+
+    /**
+     * Return a set of corners for the maze.
+     * 
+     * @return Set of maze corners that can not be exits.
+     */
+    private Set<Point> getCorners() {
+        Set<Point> output = new HashSet<>();
+        int mazeSize = Maze.getMazeSize();
+        output.add(new Point(0, 0));
+        output.add(new Point(0, mazeSize - 1));
+        output.add(new Point(mazeSize - 1, 0));
+        output.add(new Point(0, mazeSize - 1));
+        return output;
     }
 
     /**
@@ -151,32 +173,44 @@ public class MazeGenerator {
         int mazeSize = Maze.getMazeSize();
         // Set start point
         // Use actual maze size rather than grid size
-        int x = new Random(System.currentTimeMillis()).nextInt(mazeSize);
-        int y = new Random(System.currentTimeMillis()).nextInt(mazeSize);
+        int x = 0;
+        int y = 0;
+        // Make sure start is not on an edge
+        while (x > 0 && y > 0 && x < mazeSize && y < mazeSize) {
+            x = random.nextInt(mazeSize);
+            y = random.nextInt(mazeSize);
+        }
         Maze.setStart(new Point(x, y));
 
         int[][] grid = Maze.getGrid();
         grid[Maze.getStart().getX()][Maze.getStart().getY()] = PATH;
 
-        // Set exit point
+        // Set of maze corner points
+        Set<Point> cornerSet = getCorners();
+        // A corner
+        Point exitPoint = new Point(0, 0); 
+        // Set an exit point
         // Exit point must be on an edge.
-        // Choose x or y axis
-        if (new Random().nextBoolean() == true) {
-            // We choose 'x' as primary
-            // Use actual maze size rather than grid size
-            x = new Random().nextInt(mazeSize);
-            // y must be on maze edge
-            y = edgePosition();
-        } else {
-            // We choose 'y' as primary
-            // Use actual maze size rather than grid size
-            y = new Random().nextInt(mazeSize);
-            // x must be on maze edge
-            x = edgePosition();
+        // Exit point must not be a corner
+        while (cornerSet.contains(exitPoint)) {
+            // Choose x or y axis
+            if (random.nextBoolean()) {
+                // We choose 'x' as primary
+                // Use actual maze size rather than grid size
+                x = random.nextInt(mazeSize);
+                // y must be on maze edge
+                y = edgePosition();
+            } else {
+                // We choose 'y' as primary
+                // Use actual maze size rather than grid size
+                y = random.nextInt(mazeSize);
+                // x must be on maze edge
+                x = edgePosition();
+            }
+            exitPoint = new Point(x, y);
         }
-
-        Maze.setExit(new Point(x, y));
-        grid[Maze.getExit().getX()][Maze.getExit().getY()] = 'X';
+        Maze.setExit(exitPoint);
+        grid[Maze.getExit().getX()][Maze.getExit().getY()] = EXIT;
         Maze.setGrid(grid);
     }
 }
