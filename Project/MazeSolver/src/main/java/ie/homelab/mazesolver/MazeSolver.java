@@ -111,7 +111,7 @@ public class MazeSolver {
             }
 
             // Resolve
-            MazeResolver resolver = new MazeResolver(maze);
+            MazeResolver resolver = new MazeResolver();
             resolver.resolveMaze();
             System.out.println(maze.toString());
             System.out.println("Path: " + resolver.getPointDistance(Maze.getStart()));
@@ -159,7 +159,7 @@ public class MazeSolver {
             rawSize = con.readLine();
             validSize = validateMazeSize(rawSize);
             if (validSize) {
-                mazeSize = Integer.parseInt(rawSize);
+                Maze.setMazeSize(Integer.parseInt(rawSize));
             } else {
                 LOGGER.log(Level.INFO, "Invalid entry, try again!");
             }
