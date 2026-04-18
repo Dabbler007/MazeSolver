@@ -45,10 +45,7 @@ public class MazeResolver {
      * Search directions.
      */
     private static int[][] DIRECTIONS = {{0, -DIST}, {0, DIST}, {-DIST, 0}, {DIST, 0}};
-    /**
-     * Maze data object.
-     */
-    private static Maze maze;
+  
     /**
      * Array of distances from exit.
      */
@@ -58,17 +55,7 @@ public class MazeResolver {
      * Default constructor.
      */
     public MazeResolver() {
-
-    }
-
-    /**
-     * Parameterised constructor.
-     *
-     * @param input Incoming maze.
-     */
-    public MazeResolver(final Maze input) {
-        maze = input;
-
+        // Default Constructor
     }
 
     /**
@@ -80,7 +67,7 @@ public class MazeResolver {
         final boolean output = true;
 
         // Track distances travelled from each point
-        distance = new int[Maze.getGrid().length - 1][Maze.getGrid().length - 1];
+        distance = new int[Maze.getGrid().length ][Maze.getGrid().length];
 
         distance = initialiseDistances(distance);
 
