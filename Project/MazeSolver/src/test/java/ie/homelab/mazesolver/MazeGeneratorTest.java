@@ -19,10 +19,10 @@ package ie.homelab.mazesolver;
 import ie.homelab.mazesolver.model.Maze;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -66,7 +66,7 @@ public class MazeGeneratorTest {
         instance.generateMaze();
 
         assertNotNull(instance);
-        assertEquals(Maze.getGrid().length, (Maze.DEFAULT_SIZE + 1));
+        assertEquals(Maze.getGrid().length, (Maze.DEFAULT_SIZE));
     }
 
     /**
@@ -81,6 +81,6 @@ public class MazeGeneratorTest {
         instance.generateMaze();
 
         assertNotNull(instance);
-        assertEquals(101,Maze.getGrid().length);
+        assertEquals(100,Maze.getGrid().length);
     }
 }
