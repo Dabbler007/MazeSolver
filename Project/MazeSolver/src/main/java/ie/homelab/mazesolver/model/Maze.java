@@ -17,6 +17,7 @@ package ie.homelab.mazesolver.model;
  */
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -25,7 +26,11 @@ import java.util.logging.Logger;
  * @author derek
  */
 public final class Maze implements Serializable {
-    
+    /**
+     * Wall value. ASCII code for '#'.
+     */
+    private static final int WALL = 35; // ASCII code for '#'
+
     /**
      * Logger.
      */
@@ -71,7 +76,7 @@ public final class Maze implements Serializable {
      * Start point.
      */
     private static Point start;
-    
+
     /**
      * Singleton instance.
      */
@@ -80,7 +85,7 @@ public final class Maze implements Serializable {
     /**
      * Set maze size.
      * 
-     * @param mazeSize int value. 
+     * @param mazeSize int value.
      */
     public static void setMazeSize(int mazeSize) {
         Maze.mazeSize = mazeSize;
@@ -107,7 +112,7 @@ public final class Maze implements Serializable {
     public static boolean isInBounds(final int x, final int y) {
         boolean output = false;
 
-        if (x >= 0 && x < (mazeSize) && y >= 0 && y < (mazeSize)) {
+        if (x >= 0 && x < mazeSize && y >= 0 && y < mazeSize) {
             // coordinate is in bounds
             output = true;
         }
@@ -132,13 +137,13 @@ public final class Maze implements Serializable {
      */
     public static void initGrid() {
         /*
-         * Fill grid with 'Walls', Make grid 1 cell wider and taller to facilitate generator
-         * algorithm
+         * Fill grid with 'Walls', represented by char '#'. This is the default state of the maze,
+         * and will be modified
          */
-        grid = new int[mazeSize + 1][mazeSize + 1];
+        grid = new int[mazeSize][mazeSize];
         for (int[] grid1 : grid) {
-            for (int j = 0; j < mazeSize + 1; j++) {
-                grid1[j] = '#';
+            for (int j = 0; j < mazeSize; j++) {
+                grid1[j] = Maze.WALL;
             }
         }
     }
@@ -270,6 +275,9 @@ public final class Maze implements Serializable {
         output.append(start.y()).append("] ");
         output.append("Exit [").append(exit.x()).append(",");
         output.append(exit.y()).append("]\n");
+        if (LOGGER.isLoggable(Level.FINE)) {
+            LOGGER.log(Level.FINE, output.toString());
+        }
         return output.toString();
     }
 
