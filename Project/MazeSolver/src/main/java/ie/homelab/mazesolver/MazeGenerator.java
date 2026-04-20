@@ -176,10 +176,11 @@ public class MazeGenerator {
         int x = 0;
         int y = 0;
         // Make sure start is not on an edge
-        while (x > 0 && y > 0 && x < mazeSize && y < mazeSize) {
+        do {
             x = random.nextInt(mazeSize);
             y = random.nextInt(mazeSize);
-        }
+        } while (x > 0 && y > 0 && x < mazeSize && y < mazeSize);
+
         Maze.setStart(new Point(x, y));
 
         int[][] grid = Maze.getGrid();
@@ -188,7 +189,7 @@ public class MazeGenerator {
         // Set of maze corner points
         Set<Point> cornerSet = getCorners();
         // A corner
-        Point exitPoint = new Point(0, 0); 
+        Point exitPoint = new Point(0, 0);
         // Set an exit point
         // Exit point must be on an edge.
         // Exit point must not be a corner
