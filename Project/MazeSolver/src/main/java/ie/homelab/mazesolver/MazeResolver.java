@@ -49,7 +49,7 @@ public class MazeResolver {
     /**
      * Array of distances from exit.
      */
-    private int[][] distance;
+    private int[][] distances;
 
     /**
      * Default constructor.
@@ -67,12 +67,12 @@ public class MazeResolver {
         final boolean output = true;
 
         // Track distances travelled from each point
-        distance = new int[Maze.getGrid().length ][Maze.getGrid().length];
+        distances = new int[Maze.getGrid().length ][Maze.getGrid().length];
 
-        distance = initialiseDistances(distance);
+        distances = initialiseDistances(distances);
 
         // Exit point distance from exit is 0
-        distance[Maze.getExit().x()][Maze.getExit().y()] = 0;
+        distances[Maze.getExit().x()][Maze.getExit().y()] = 0;
         Deque<Point> stack = new ArrayDeque<>();
         // Make exit start point for reversing the maze.
         stack.push(Maze.getExit());
@@ -82,23 +82,23 @@ public class MazeResolver {
         List<Point> neighbours;
         while (!stack.isEmpty()) {
             current = stack.pop();
-            currentDistance = distance[current.x()][current.y()];
+            currentDistance = distances[current.x()][current.y()];
             // Find neighbours for cell at top of stack
-            neighbours = getUnvisitedNeighbours(current, distance);
+            neighbours = getUnvisitedNeighbours(current, distances);
 
             // Add neighbours to stack, record distance as current distance +1
             for (Point n : neighbours) {
                 // if neighbour not visited
-                if (distance[n.x()][n.y()] <= -1) {
+                if (distances[n.x()][n.y()] <= -1) {
                     stack.push(n);
-                    distance[n.x()][n.y()] = currentDistance + 1;
+                    distances[n.x()][n.y()] = currentDistance + 1;
                 }
             }
         }
 
         if (LOGGER.isLoggable(Level.FINE)) {
-            LOGGER.log(Level.FINE, renderDistances(distance));
-            System.out.println(renderDistances(distance));
+            LOGGER.log(Level.FINE, renderDistances(distances));
+            System.out.println(renderDistances(distances));
         }
         return output;
     }
@@ -121,8 +121,7 @@ public class MazeResolver {
             ny = p.y() + dir[1];
 
             // Unvisited Neighbours are in bounds and contain an unvisited value.
-            if (Maze.isInBounds(nx, ny) && distance[nx][ny] <= -1
-                            && Maze.getGrid()[nx][ny] != '#') {
+            if (Maze.isInBounds(nx, ny) && distance[nx][ny] <= -1 && Maze.getGrid()[nx][ny] != '#') {
                 output.add(new Point(nx, ny));
             }
         }
@@ -180,8 +179,8 @@ public class MazeResolver {
      */
     public int getPointDistance(final Point p) {
         int output = -1;
-        if (distance != null && distance.length > 0) {
-            output = distance[p.x()][p.y()];
+        if (distances != null) {
+            output = distances[p.x()][p.y()];
         }
         return output;
     }
