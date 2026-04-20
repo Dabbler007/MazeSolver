@@ -34,6 +34,7 @@ import org.junit.Test;
 public class MazeResolverTest {
 
     public MazeResolverTest() {
+        // Default Constructor
     }
 
     @BeforeClass
