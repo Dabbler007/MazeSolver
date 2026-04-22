@@ -51,10 +51,9 @@ public class MazePanel extends JPanel {
         initComponents();
         drawMazeComponents();
         setVisible(showMaze);
-
     }
 
-    /**
+    /** 
      * Draw maze from maze data.
      */
     private void drawMazeComponents() {
