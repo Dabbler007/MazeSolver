@@ -119,6 +119,11 @@ public final class Maze implements Serializable {
         return output;
     }
 
+    /**
+     * Set exit point.
+     *
+     * @param newExit New value for exit point.
+     */
     public static void setExit(final Point newExit) {
         Maze.exit = newExit;
     }
