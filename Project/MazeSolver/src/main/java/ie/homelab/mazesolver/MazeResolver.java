@@ -3,25 +3,24 @@ package ie.homelab.mazesolver;
 /*
  * Copyright (C) 2026 derek
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * You should have received a copy of the GNU General Public License along with this program; if
+ * not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
  */
 import ie.homelab.mazesolver.model.Maze;
-import ie.homelab.mazesolver.model.Maze.Point;
+import ie.homelab.mazesolver.model.Point;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,36 +39,23 @@ public class MazeResolver {
     /**
      * Search distance.
      */
-    private static int DIST = 1;
+    private static final int DIST = 1;
 
     /**
      * Search directions.
      */
     private static int[][] DIRECTIONS = {{0, -DIST}, {0, DIST}, {-DIST, 0}, {DIST, 0}};
-    /**
-     * Maze data object.
-     */
-    private static Maze maze;
+  
     /**
      * Array of distances from exit.
      */
-    private int[][] distance;
+    private int[][] distances;
 
     /**
      * Default constructor.
      */
     public MazeResolver() {
-
-    }
-
-    /**
-     * Parameterised constructor.
-     *
-     * @param input Incoming maze.
-     */
-    public MazeResolver(final Maze input) {
-        maze = input;
-
+        // Default Constructor
     }
 
     /**
@@ -81,38 +67,38 @@ public class MazeResolver {
         final boolean output = true;
 
         // Track distances travelled from each point
-        distance = new int[maze.getGrid().length - 1][maze.getGrid().length - 1];
+        distances = new int[Maze.getGrid().length ][Maze.getGrid().length];
 
-        distance = initialiseDistances(distance);
+        distances = initialiseDistances(distances);
 
         // Exit point distance from exit is 0
-        distance[maze.getExit().x()][maze.getExit().y()] = 0;
-        Stack<Point> stack = new Stack<>();
+        distances[Maze.getExit().x()][Maze.getExit().y()] = 0;
+        Deque<Point> stack = new ArrayDeque<>();
         // Make exit start point for reversing the maze.
-        stack.push(maze.getExit());
+        stack.push(Maze.getExit());
 
         Point current;
         int currentDistance;
         List<Point> neighbours;
-        while (!stack.empty()) {
+        while (!stack.isEmpty()) {
             current = stack.pop();
-            currentDistance = distance[current.x()][current.y()];
+            currentDistance = distances[current.x()][current.y()];
             // Find neighbours for cell at top of stack
-            neighbours = getUnvisitedNeighbours(current, distance);
+            neighbours = getUnvisitedNeighbours(current, distances);
 
             // Add neighbours to stack, record distance as current distance +1
             for (Point n : neighbours) {
                 // if neighbour not visited
-                if (distance[n.x()][n.y()] <= -1) {
+                if (distances[n.x()][n.y()] <= -1) {
                     stack.push(n);
-                    distance[n.x()][n.y()] = currentDistance + 1;
+                    distances[n.x()][n.y()] = currentDistance + 1;
                 }
             }
         }
 
         if (LOGGER.isLoggable(Level.FINE)) {
-            LOGGER.log(Level.FINE, renderDistances(distance));
-            System.out.println(renderDistances(distance));
+            LOGGER.log(Level.FINE, renderDistances(distances));
+            System.out.println(renderDistances(distances));
         }
         return output;
     }
@@ -120,7 +106,7 @@ public class MazeResolver {
     /**
      * Get list of unvisited neighbours to point p.
      *
-     * @param p Point in the grid.
+     * @param p    Point in the grid.
      * @param grid Grid data.
      * @return List of Points.
      */
@@ -135,8 +121,8 @@ public class MazeResolver {
             ny = p.y() + dir[1];
 
             // Unvisited Neighbours are in bounds and contain an unvisited value.
-            if (Maze.isInBounds(nx, ny) && distance[nx][ny] <= -1 && maze.getGrid()[nx][ny] != '#') {
-                output.add(new Maze.Point(nx, ny));
+            if (Maze.isInBounds(nx, ny) && distance[nx][ny] <= -1 && Maze.getGrid()[nx][ny] != '#') {
+                output.add(new Point(nx, ny));
             }
         }
         return output;
@@ -193,8 +179,8 @@ public class MazeResolver {
      */
     public int getPointDistance(final Point p) {
         int output = -1;
-        if (distance != null && distance.length > 0) {
-            output = distance[p.x()][p.y()];
+        if (distances != null) {
+            output = distances[p.x()][p.y()];
         }
         return output;
     }
